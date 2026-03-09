@@ -36,20 +36,17 @@ const LoginPage = () => {
 
             <div className="w-full max-w-md relative z-10 fade-in-up">
                 {/* Logo */}
-                <div className="text-center mb-8">
-                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center mx-auto mb-4 pulse-glow">
-                        <Brain size={30} className="text-white" />
-                    </div>
-                    <h1 className="text-3xl font-bold mb-2">Welcome Back</h1>
-                    <p className="text-gray-400">Sign in to continue your interview practice</p>
+                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center mx-auto mb-4 pulse-glow shadow-lg shadow-indigo-100">
+                    <Brain size={30} className="text-white" />
                 </div>
+                <h1 className="text-3xl font-bold mb-2 text-gray-900">Welcome Back</h1>
+                <p className="text-gray-600 font-medium">Sign in to continue your interview practice</p>
 
-                {/* Form card */}
-                <div className="glass-card p-8 border-indigo-500/20">
+                <div className="bg-white p-8 rounded-2xl border border-indigo-100 shadow-2xl">
                     <form onSubmit={handleSubmit} className="space-y-5">
                         {/* Email */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-300 mb-2">Email Address</label>
+                            <label className="block text-sm font-bold text-gray-700 mb-2">Email Address</label>
                             <div className="relative">
                                 <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
                                 <input
@@ -65,7 +62,7 @@ const LoginPage = () => {
 
                         {/* Password */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-300 mb-2">Password</label>
+                            <label className="block text-sm font-bold text-gray-700 mb-2">Password</label>
                             <div className="relative">
                                 <Lock size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
                                 <input
@@ -106,9 +103,9 @@ const LoginPage = () => {
                         </button>
                     </form>
 
-                    <p className="text-center text-gray-400 text-sm mt-6">
+                    <p className="text-center text-gray-500 text-sm mt-6 font-medium">
                         Don't have an account?{' '}
-                        <Link to="/signup" className="text-indigo-400 hover:text-indigo-300 font-medium transition">
+                        <Link to="/signup" className="text-indigo-600 hover:text-indigo-700 font-bold transition">
                             Create one for free →
                         </Link>
                     </p>

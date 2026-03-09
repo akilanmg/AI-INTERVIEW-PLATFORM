@@ -18,7 +18,7 @@ const ScoreRing = ({ score }) => {
     return (
         <div className="relative w-36 h-36 mx-auto">
             <svg className="w-full h-full -rotate-90" viewBox="0 0 120 120">
-                <circle cx="60" cy="60" r={r} fill="none" stroke="rgba(255,255,255,0.08)" strokeWidth="10" />
+                <circle cx="60" cy="60" r={r} fill="none" stroke="rgba(0,0,0,0.05)" strokeWidth="10" />
                 <circle
                     cx="60" cy="60" r={r} fill="none"
                     stroke={color} strokeWidth="10"
@@ -29,7 +29,7 @@ const ScoreRing = ({ score }) => {
             </svg>
             <div className="absolute inset-0 flex flex-col items-center justify-center">
                 <span className="text-4xl font-bold" style={{ color }}>{score}</span>
-                <span className="text-xs text-gray-400 font-medium">/ 10</span>
+                <span className="text-xs text-gray-500 font-bold">/ 10</span>
             </div>
         </div>
     );
@@ -63,10 +63,10 @@ const ResultsPage = () => {
 
     if (loading) {
         return (
-            <div className="hero-bg min-h-screen flex items-center justify-center">
+            <div className="bg-white min-h-screen flex items-center justify-center">
                 <div className="text-center">
-                    <Loader2 size={48} className="animate-spin text-indigo-400 mx-auto mb-4" />
-                    <p className="text-gray-400">Loading your results...</p>
+                    <Loader2 size={48} className="animate-spin text-indigo-600 mx-auto mb-4" />
+                    <p className="text-gray-600">Loading your results...</p>
                 </div>
             </div>
         );
@@ -74,10 +74,10 @@ const ResultsPage = () => {
 
     if (!session) {
         return (
-            <div className="hero-bg min-h-screen flex items-center justify-center text-center">
+            <div className="bg-white min-h-screen flex items-center justify-center text-center">
                 <div>
-                    <AlertCircle size={48} className="text-red-400 mx-auto mb-4" />
-                    <h2 className="text-xl font-semibold text-red-400 mb-2">Results Not Found</h2>
+                    <AlertCircle size={48} className="text-red-500 mx-auto mb-4" />
+                    <h2 className="text-xl font-semibold text-red-500 mb-2">Results Not Found</h2>
                     <Link to="/dashboard" className="btn-primary inline-flex mt-4">Go to Dashboard</Link>
                 </div>
             </div>
@@ -89,15 +89,15 @@ const ResultsPage = () => {
     const answeredCount = questions.filter(q => q.answers?.length > 0).length;
 
     return (
-        <div className="hero-bg min-h-screen py-12 px-6">
+        <div className="bg-white min-h-screen py-12 px-6">
             <div className="max-w-4xl mx-auto">
                 {/* Overall Score Card */}
-                <div className="glass-card p-10 mb-8 text-center border-indigo-500/20 bg-gradient-to-br from-indigo-500/8 to-purple-500/8 fade-in-up">
+                <div className="bg-white p-10 mb-8 text-center border border-indigo-100 shadow-xl fade-in-up">
                     <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-yellow-500 to-orange-500 flex items-center justify-center mx-auto mb-5">
                         <Trophy size={26} className="text-white" />
                     </div>
-                    <h1 className="text-3xl font-bold mb-2">Interview Complete!</h1>
-                    <p className="text-gray-400 mb-8">{scoreLabel}</p>
+                    <h1 className="text-3xl font-bold mb-2 text-gray-900">Interview Complete!</h1>
+                    <p className="text-gray-600 font-medium mb-8">{scoreLabel}</p>
 
                     <ScoreRing score={score} />
 
@@ -133,9 +133,9 @@ const ResultsPage = () => {
                 </div>
 
                 {/* Skill breakdown */}
-                <div className="glass-card p-7 mb-6 fade-in-up" style={{ animationDelay: '0.1s' }}>
-                    <h2 className="text-lg font-semibold mb-5 flex items-center gap-2">
-                        <TrendingUp size={20} className="text-indigo-400" />
+                <div className="bg-white p-7 mb-6 border border-gray-100 shadow-xl rounded-2xl fade-in-up" style={{ animationDelay: '0.1s' }}>
+                    <h2 className="text-lg font-bold mb-5 flex items-center gap-2 text-gray-900">
+                        <TrendingUp size={20} className="text-indigo-600" />
                         Score Breakdown
                     </h2>
                     <div className="space-y-4">
@@ -167,14 +167,14 @@ const ResultsPage = () => {
                 </div>
 
                 {/* Question-wise Review */}
-                <div className="glass-card mb-8 fade-in-up" style={{ animationDelay: '0.2s' }}>
-                    <div className="p-6 border-b border-white/5">
-                        <h2 className="text-lg font-semibold flex items-center gap-2">
-                            <Brain size={20} className="text-indigo-400" />
+                <div className="bg-white border border-gray-100 shadow-xl rounded-2xl mb-8 fade-in-up" style={{ animationDelay: '0.2s' }}>
+                    <div className="p-6 border-b border-gray-50">
+                        <h2 className="text-lg font-bold flex items-center gap-2 text-gray-900">
+                            <Brain size={20} className="text-indigo-600" />
                             Question-by-Question Review
                         </h2>
                     </div>
-                    <div className="divide-y divide-white/5">
+                    <div className="divide-y divide-gray-50">
                         {questions.map((q, i) => {
                             const ans = q.answers?.[0];
                             const feedback = ans?.ai_feedback;
@@ -188,14 +188,14 @@ const ResultsPage = () => {
                                         className="w-full flex items-center justify-between text-left"
                                     >
                                         <div className="flex items-start gap-4 flex-1">
-                                            <div className={`w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 text-sm font-bold ${qScore >= 7 ? 'bg-green-500/20 text-green-400' :
-                                                    qScore >= 5 ? 'bg-yellow-500/20 text-yellow-400' :
-                                                        'bg-red-500/20 text-red-400'
+                                            <div className={`w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 text-sm font-bold ${qScore >= 7 ? 'bg-emerald-50 text-emerald-600 border border-emerald-100' :
+                                                qScore >= 5 ? 'bg-orange-50 text-orange-600 border border-orange-100' :
+                                                    'bg-red-50 text-red-600 border border-red-100'
                                                 }`}>
                                                 {i + 1}
                                             </div>
                                             <div className="flex-1">
-                                                <p className="text-sm font-medium text-gray-200 line-clamp-2">{q.question_text}</p>
+                                                <p className="text-sm font-bold text-gray-800 line-clamp-2">{q.question_text}</p>
                                                 {!isOpen && ans && (
                                                     <span className={`score-badge mt-2 ${qScore >= 7 ? 'score-high' : qScore >= 5 ? 'score-mid' : 'score-low'}`}>
                                                         {qScore}/10
@@ -211,41 +211,41 @@ const ResultsPage = () => {
                                     {isOpen && ans && (
                                         <div className="mt-5 ml-13 space-y-4 pl-13" style={{ paddingLeft: '52px' }}>
                                             {/* Your answer */}
-                                            <div className="bg-white/3 rounded-xl p-4 border border-white/8">
-                                                <p className="text-xs text-gray-500 mb-1 font-medium uppercase tracking-wide">Your Answer</p>
-                                                <p className="text-sm text-gray-300 leading-relaxed">{ans.user_answer}</p>
+                                            <div className="bg-gray-50 rounded-xl p-4 border border-gray-100">
+                                                <p className="text-xs text-gray-500 mb-2 font-bold uppercase tracking-wide">Your Answer</p>
+                                                <p className="text-sm text-gray-700 leading-relaxed font-medium">{ans.user_answer}</p>
                                             </div>
 
                                             <div className="flex items-center justify-between">
-                                                <h4 className="font-semibold text-sm">AI Evaluation</h4>
-                                                <span className={`score-badge ${qScore >= 7 ? 'score-high' : qScore >= 5 ? 'score-mid' : 'score-low'}`}>
+                                                <h4 className="font-bold text-sm text-gray-900">AI Evaluation</h4>
+                                                <span className={`score-badge shadow-sm ${qScore >= 7 ? 'score-high' : qScore >= 5 ? 'score-mid' : 'score-low'}`}>
                                                     Score: {qScore}/10
                                                 </span>
                                             </div>
 
                                             {feedback?.overall_feedback && (
-                                                <p className="text-sm text-gray-400 leading-relaxed">{feedback.overall_feedback}</p>
+                                                <p className="text-sm text-gray-600 leading-relaxed font-medium">{feedback.overall_feedback}</p>
                                             )}
 
                                             {feedback && (
                                                 <div className="grid md:grid-cols-2 gap-3">
-                                                    <div className="bg-green-500/8 rounded-xl p-4 border border-green-500/15">
-                                                        <h5 className="text-xs font-semibold text-green-400 mb-2 flex items-center gap-1">
+                                                    <div className="bg-emerald-50 rounded-xl p-4 border border-emerald-100">
+                                                        <h5 className="text-xs font-bold text-emerald-700 mb-2 flex items-center gap-1">
                                                             <CheckCircle size={12} /> Strengths
                                                         </h5>
                                                         <ul className="space-y-1">
                                                             {feedback.strengths?.map((s, j) => (
-                                                                <li key={j} className="text-xs text-gray-400">• {s}</li>
+                                                                <li key={j} className="text-xs text-gray-600 font-medium">• {s}</li>
                                                             ))}
                                                         </ul>
                                                     </div>
-                                                    <div className="bg-yellow-500/8 rounded-xl p-4 border border-yellow-500/15">
-                                                        <h5 className="text-xs font-semibold text-yellow-400 mb-2 flex items-center gap-1">
+                                                    <div className="bg-orange-50 rounded-xl p-4 border border-orange-100">
+                                                        <h5 className="text-xs font-bold text-orange-700 mb-2 flex items-center gap-1">
                                                             <AlertCircle size={12} /> Improvements
                                                         </h5>
                                                         <ul className="space-y-1">
                                                             {feedback.improvements?.map((tip, j) => (
-                                                                <li key={j} className="text-xs text-gray-400">• {tip}</li>
+                                                                <li key={j} className="text-xs text-gray-600 font-medium">• {tip}</li>
                                                             ))}
                                                         </ul>
                                                     </div>
@@ -253,9 +253,9 @@ const ResultsPage = () => {
                                             )}
 
                                             {feedback?.ideal_answer_summary && (
-                                                <div className="bg-purple-500/8 rounded-xl p-4 border border-purple-500/15">
-                                                    <h5 className="text-xs font-semibold text-purple-400 mb-1">📚 Ideal Answer</h5>
-                                                    <p className="text-xs text-gray-400 leading-relaxed">{feedback.ideal_answer_summary}</p>
+                                                <div className="bg-purple-50 rounded-xl p-4 border border-purple-100">
+                                                    <h5 className="text-xs font-bold text-purple-700 mb-1">📚 Ideal Answer</h5>
+                                                    <p className="text-xs text-gray-600 leading-relaxed font-medium">{feedback.ideal_answer_summary}</p>
                                                 </div>
                                             )}
                                         </div>

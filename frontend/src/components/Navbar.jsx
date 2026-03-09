@@ -42,8 +42,8 @@ const Navbar = () => {
                             key={link.to}
                             to={link.to}
                             className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all ${isActive(link.to)
-                                    ? 'bg-indigo-500/20 text-indigo-400 border border-indigo-500/30'
-                                    : 'text-gray-400 hover:text-white hover:bg-white/5'
+                                ? 'bg-indigo-50 text-indigo-600 border border-indigo-200'
+                                : 'text-gray-500 hover:text-indigo-600 hover:bg-gray-100'
                                 }`}
                         >
                             {link.icon}
@@ -56,15 +56,15 @@ const Navbar = () => {
                 <div className="hidden md:flex items-center gap-3">
                     {user ? (
                         <div className="flex items-center gap-3">
-                            <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 border border-white/10">
+                            <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gray-100 border border-gray-200">
                                 <div className="w-7 h-7 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-xs font-bold text-white">
                                     {user.name?.charAt(0).toUpperCase()}
                                 </div>
-                                <span className="text-sm font-medium text-gray-300">{user.name}</span>
+                                <span className="text-sm font-medium text-gray-700">{user.name}</span>
                             </div>
                             <button
                                 onClick={handleLogout}
-                                className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium text-gray-400 hover:text-red-400 hover:bg-red-500/10 transition-all"
+                                className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium text-gray-500 hover:text-red-600 hover:bg-red-50 transition-all"
                             >
                                 <LogOut size={16} />
                                 Logout
@@ -84,7 +84,7 @@ const Navbar = () => {
 
                 {/* Mobile menu button */}
                 <button
-                    className="md:hidden p-2 rounded-xl hover:bg-white/5 transition"
+                    className="md:hidden p-2 rounded-xl hover:bg-gray-100 transition text-gray-700"
                     onClick={() => setMenuOpen(!menuOpen)}
                 >
                     {menuOpen ? <X size={22} /> : <Menu size={22} />}
@@ -93,13 +93,16 @@ const Navbar = () => {
 
             {/* Mobile menu */}
             {menuOpen && (
-                <div className="md:hidden border-t border-white/5 mt-4 pt-4 px-6 pb-4 space-y-2">
+                <div className="md:hidden border-t border-gray-100 mt-4 pt-4 px-6 pb-4 space-y-2 bg-white rounded-2xl shadow-xl mx-4">
                     {navLinks.map((link) => (
                         <Link
                             key={link.to}
                             to={link.to}
                             onClick={() => setMenuOpen(false)}
-                            className="flex items-center gap-2 px-4 py-3 rounded-xl text-sm font-medium text-gray-300 hover:bg-white/5"
+                            className={`flex items-center gap-2 px-4 py-3 rounded-xl text-sm font-medium transition-all ${isActive(link.to)
+                                ? 'bg-indigo-50 text-indigo-600'
+                                : 'text-gray-600 hover:bg-gray-50'
+                                }`}
                         >
                             {link.icon} {link.label}
                         </Link>
@@ -107,7 +110,7 @@ const Navbar = () => {
                     {user ? (
                         <button
                             onClick={() => { handleLogout(); setMenuOpen(false); }}
-                            className="w-full flex items-center gap-2 px-4 py-3 rounded-xl text-sm font-medium text-red-400 hover:bg-red-500/10"
+                            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-gray-600 hover:text-red-600 hover:bg-red-50 transition-all"
                         >
                             <LogOut size={16} /> Logout
                         </button>

@@ -58,8 +58,8 @@ const ProfilePage = () => {
 
     if (loading) {
         return (
-            <div className="hero-bg min-h-screen flex items-center justify-center">
-                <Loader2 size={48} className="animate-spin text-indigo-400" />
+            <div className="bg-white min-h-screen flex items-center justify-center">
+                <Loader2 size={48} className="animate-spin text-indigo-600" />
             </div>
         );
     }
@@ -69,18 +69,18 @@ const ProfilePage = () => {
         : 'Unknown';
 
     return (
-        <div className="hero-bg min-h-screen py-12 px-6">
+        <div className="bg-white min-h-screen py-12 px-6">
             <div className="max-w-3xl mx-auto">
                 {/* Header */}
                 <div className="text-center mb-10 fade-in-up">
-                    <div className="w-24 h-24 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center mx-auto mb-4 pulse-glow">
+                    <div className="w-24 h-24 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center mx-auto mb-4 pulse-glow shadow-xl">
                         <span className="text-4xl font-bold text-white">
                             {profile?.name?.charAt(0).toUpperCase()}
                         </span>
                     </div>
-                    <h1 className="text-2xl font-bold">{profile?.name}</h1>
-                    <p className="text-gray-400 mt-1">{profile?.email}</p>
-                    <div className="flex items-center justify-center gap-2 mt-2 text-sm text-gray-500">
+                    <h1 className="text-3xl font-bold text-gray-900">{profile?.name}</h1>
+                    <p className="text-gray-600 font-medium mt-1">{profile?.email}</p>
+                    <div className="flex items-center justify-center gap-2 mt-3 text-sm text-gray-400 font-bold">
                         <Calendar size={14} />
                         Member since {joinDate}
                     </div>
@@ -102,18 +102,18 @@ const ProfilePage = () => {
                 </div>
 
                 {/* Update form */}
-                <div className="glass-card p-8 fade-in-up" style={{ animationDelay: '0.2s' }}>
-                    <h2 className="text-lg font-semibold mb-6 flex items-center gap-2">
-                        <User size={20} className="text-indigo-400" />
+                <div className="bg-white p-8 rounded-2xl border border-gray-100 shadow-xl fade-in-up" style={{ animationDelay: '0.2s' }}>
+                    <h2 className="text-xl font-bold mb-6 flex items-center gap-2 text-gray-900">
+                        <User size={20} className="text-indigo-600" />
                         Update Profile
                     </h2>
 
                     <form onSubmit={handleUpdate} className="space-y-5">
                         {/* Name */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-300 mb-2">Full Name</label>
+                            <label className="block text-sm font-bold text-gray-700 mb-2">Full Name</label>
                             <div className="relative">
-                                <User size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
+                                <User size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
                                 <input
                                     type="text"
                                     className="input-field pl-12"
@@ -126,9 +126,9 @@ const ProfilePage = () => {
 
                         {/* Email (read-only) */}
                         <div>
-                            <label className="block text-sm font-medium text-gray-300 mb-2">Email (Read-only)</label>
+                            <label className="block text-sm font-bold text-gray-700 mb-2">Email (Read-only)</label>
                             <div className="relative">
-                                <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
+                                <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
                                 <input
                                     type="email"
                                     className="input-field pl-12 opacity-60"
@@ -138,16 +138,16 @@ const ProfilePage = () => {
                             </div>
                         </div>
 
-                        <hr className="border-white/10" />
-                        <h3 className="font-medium text-gray-300 flex items-center gap-2">
-                            <Lock size={16} className="text-purple-400" />
-                            Change Password <span className="text-gray-500 text-sm font-normal">(optional)</span>
+                        <hr className="border-gray-50" />
+                        <h3 className="font-bold text-gray-800 flex items-center gap-2">
+                            <Lock size={16} className="text-indigo-600" />
+                            Change Password <span className="text-gray-400 text-sm font-normal">(optional)</span>
                         </h3>
 
                         <div>
-                            <label className="block text-sm font-medium text-gray-300 mb-2">Current Password</label>
+                            <label className="block text-sm font-bold text-gray-700 mb-2">Current Password</label>
                             <div className="relative">
-                                <Lock size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
+                                <Lock size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
                                 <input
                                     type="password"
                                     className="input-field pl-12"
@@ -160,9 +160,9 @@ const ProfilePage = () => {
 
                         <div className="grid md:grid-cols-2 gap-4">
                             <div>
-                                <label className="block text-sm font-medium text-gray-300 mb-2">New Password</label>
+                                <label className="block text-sm font-bold text-gray-700 mb-2">New Password</label>
                                 <div className="relative">
-                                    <Lock size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
+                                    <Lock size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
                                     <input
                                         type="password"
                                         className="input-field pl-12"
@@ -173,9 +173,9 @@ const ProfilePage = () => {
                                 </div>
                             </div>
                             <div>
-                                <label className="block text-sm font-medium text-gray-300 mb-2">Confirm New Password</label>
+                                <label className="block text-sm font-bold text-gray-700 mb-2">Confirm Password</label>
                                 <div className="relative">
-                                    <Lock size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
+                                    <Lock size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
                                     <input
                                         type="password"
                                         className="input-field pl-12"

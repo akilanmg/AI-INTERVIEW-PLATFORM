@@ -15,15 +15,15 @@ const roles = [
 ];
 
 const categories = [
-    { value: 'Coding', label: 'Coding', icon: <Code2 size={20} />, desc: 'DSA, algorithms, problem solving', color: 'border-purple-500/40 bg-purple-500/10' },
-    { value: 'SQL', label: 'SQL', icon: <Database size={20} />, desc: 'Queries, joins, optimization', color: 'border-blue-500/40 bg-blue-500/10' },
-    { value: 'HR', label: 'HR Round', icon: <Users size={20} />, desc: 'Behavioral, soft skills, situational', color: 'border-green-500/40 bg-green-500/10' },
+    { value: 'Coding', label: 'Coding', icon: <Code2 size={20} />, desc: 'DSA, algorithms, problem solving', color: 'border-purple-200 bg-purple-50 text-purple-600' },
+    { value: 'SQL', label: 'SQL', icon: <Database size={20} />, desc: 'Queries, joins, optimization', color: 'border-blue-200 bg-blue-50 text-blue-600' },
+    { value: 'HR', label: 'HR Round', icon: <Users size={20} />, desc: 'Behavioral, soft skills, situational', color: 'border-green-200 bg-green-50 text-green-600' },
 ];
 
 const difficulties = [
-    { value: 'beginner', label: 'Beginner', icon: <BookOpen size={18} />, desc: '0-1 year experience', color: 'border-teal-500/40 bg-teal-500/10 text-teal-400' },
-    { value: 'intermediate', label: 'Intermediate', icon: <Gauge size={18} />, desc: '2-4 years experience', color: 'border-yellow-500/40 bg-yellow-500/10 text-yellow-400' },
-    { value: 'advanced', label: 'Advanced', icon: <Zap size={18} />, desc: '5+ years experience', color: 'border-red-500/40 bg-red-500/10 text-red-400' },
+    { value: 'beginner', label: 'Beginner', icon: <BookOpen size={18} />, desc: '0-1 year experience', color: 'border-teal-200 bg-teal-50 text-teal-600' },
+    { value: 'intermediate', label: 'Intermediate', icon: <Gauge size={18} />, desc: '2-4 years experience', color: 'border-yellow-200 bg-yellow-50 text-yellow-600' },
+    { value: 'advanced', label: 'Advanced', icon: <Zap size={18} />, desc: '5+ years experience', color: 'border-red-200 bg-red-50 text-red-600' },
 ];
 
 const InterviewSetupPage = () => {
@@ -72,18 +72,18 @@ const InterviewSetupPage = () => {
                     <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center mx-auto mb-5 pulse-glow">
                         <Brain size={30} className="text-white" />
                     </div>
-                    <h1 className="text-4xl font-bold mb-3">
+                    <h1 className="text-4xl font-bold mb-3 text-gray-900">
                         Setup Your <span className="gradient-text">Interview</span>
                     </h1>
-                    <p className="text-gray-400 text-lg">
+                    <p className="text-gray-600 text-lg font-medium">
                         Customize your practice session to match your target role and skill level
                     </p>
                 </div>
 
                 {/* Step 1: Role */}
                 <div className="glass-card p-7 mb-6 fade-in-up" style={{ animationDelay: '0.1s' }}>
-                    <h2 className="text-lg font-semibold mb-5 flex items-center gap-2">
-                        <span className="w-7 h-7 rounded-lg bg-indigo-500/20 border border-indigo-500/30 text-indigo-400 flex items-center justify-center text-sm font-bold">1</span>
+                    <h2 className="text-lg font-semibold mb-5 flex items-center gap-2 text-gray-900">
+                        <span className="w-7 h-7 rounded-lg bg-indigo-50 border border-indigo-200 text-indigo-600 flex items-center justify-center text-sm font-bold">1</span>
                         Select Your Target Role
                     </h2>
                     <div className="grid sm:grid-cols-2 gap-3">
@@ -92,14 +92,14 @@ const InterviewSetupPage = () => {
                                 key={role.value}
                                 onClick={() => set('role_selected', role.value)}
                                 className={`p-4 rounded-xl border text-left transition-all hover:scale-[1.02] ${form.role_selected === role.value
-                                        ? 'border-indigo-500 bg-indigo-500/15 shadow-lg shadow-indigo-500/10'
-                                        : 'border-white/10 bg-white/3 hover:border-white/20'
+                                    ? 'border-indigo-500 bg-indigo-50 shadow-md border-opacity-100'
+                                    : 'border-gray-100 bg-gray-50/50 hover:border-indigo-200'
                                     }`}
                             >
                                 <div className="flex items-center gap-3">
                                     <span className="text-2xl">{role.icon}</span>
                                     <div>
-                                        <div className="font-semibold text-sm">{role.label}</div>
+                                        <div className={`font-semibold text-sm ${form.role_selected === role.value ? 'text-indigo-700' : 'text-gray-700'}`}>{role.label}</div>
                                         <div className="text-xs text-gray-500 mt-0.5">{role.desc}</div>
                                     </div>
                                     {form.role_selected === role.value && (
@@ -115,8 +115,8 @@ const InterviewSetupPage = () => {
 
                 {/* Step 2: Category */}
                 <div className="glass-card p-7 mb-6 fade-in-up" style={{ animationDelay: '0.2s' }}>
-                    <h2 className="text-lg font-semibold mb-5 flex items-center gap-2">
-                        <span className="w-7 h-7 rounded-lg bg-purple-500/20 border border-purple-500/30 text-purple-400 flex items-center justify-center text-sm font-bold">2</span>
+                    <h2 className="text-lg font-semibold mb-5 flex items-center gap-2 text-gray-900">
+                        <span className="w-7 h-7 rounded-lg bg-purple-50 border border-purple-200 text-purple-600 flex items-center justify-center text-sm font-bold">2</span>
                         Choose Interview Category
                     </h2>
                     <div className="grid sm:grid-cols-3 gap-3">
@@ -125,8 +125,8 @@ const InterviewSetupPage = () => {
                                 key={cat.value}
                                 onClick={() => set('category', cat.value)}
                                 className={`p-5 rounded-xl border text-center transition-all hover:scale-[1.02] ${form.category === cat.value
-                                        ? `${cat.color} border-opacity-100 shadow-lg`
-                                        : 'border-white/10 bg-white/3 hover:border-white/20'
+                                    ? `${cat.color} border-opacity-100 shadow-md`
+                                    : 'border-gray-100 bg-gray-50/50 hover:border-purple-200'
                                     }`}
                             >
                                 <div className={`w-10 h-10 rounded-xl flex items-center justify-center mx-auto mb-3 ${form.category === cat.value ? 'bg-white/10' : 'bg-white/5'
@@ -142,8 +142,8 @@ const InterviewSetupPage = () => {
 
                 {/* Step 3: Difficulty */}
                 <div className="glass-card p-7 mb-6 fade-in-up" style={{ animationDelay: '0.3s' }}>
-                    <h2 className="text-lg font-semibold mb-5 flex items-center gap-2">
-                        <span className="w-7 h-7 rounded-lg bg-cyan-500/20 border border-cyan-500/30 text-cyan-400 flex items-center justify-center text-sm font-bold">3</span>
+                    <h2 className="text-lg font-semibold mb-5 flex items-center gap-2 text-gray-900">
+                        <span className="w-7 h-7 rounded-lg bg-cyan-50 border border-cyan-200 text-cyan-600 flex items-center justify-center text-sm font-bold">3</span>
                         Set Difficulty Level
                     </h2>
                     <div className="grid sm:grid-cols-3 gap-3">
@@ -152,8 +152,8 @@ const InterviewSetupPage = () => {
                                 key={diff.value}
                                 onClick={() => set('difficulty', diff.value)}
                                 className={`p-5 rounded-xl border text-center transition-all hover:scale-[1.02] ${form.difficulty === diff.value
-                                        ? `${diff.color} border-opacity-100 shadow-lg`
-                                        : 'border-white/10 bg-white/3 hover:border-white/20'
+                                    ? `${diff.color} border-opacity-100 shadow-md`
+                                    : 'border-gray-100 bg-gray-50/50 hover:border-cyan-200'
                                     }`}
                             >
                                 <div className="flex items-center justify-center mb-3">{diff.icon}</div>
@@ -166,8 +166,8 @@ const InterviewSetupPage = () => {
 
                 {/* Step 4: Number of questions */}
                 <div className="glass-card p-7 mb-8 fade-in-up" style={{ animationDelay: '0.4s' }}>
-                    <h2 className="text-lg font-semibold mb-5 flex items-center gap-2">
-                        <span className="w-7 h-7 rounded-lg bg-green-500/20 border border-green-500/30 text-green-400 flex items-center justify-center text-sm font-bold">4</span>
+                    <h2 className="text-lg font-semibold mb-5 flex items-center gap-2 text-gray-900">
+                        <span className="w-7 h-7 rounded-lg bg-green-50 border border-green-200 text-green-600 flex items-center justify-center text-sm font-bold">4</span>
                         Number of Questions: <span className="gradient-text ml-2">{form.num_questions}</span>
                     </h2>
                     <div className="flex items-center gap-4">
@@ -176,7 +176,7 @@ const InterviewSetupPage = () => {
                             min="3" max="10" step="1"
                             value={form.num_questions}
                             onChange={(e) => set('num_questions', parseInt(e.target.value))}
-                            className="flex-1 h-2 appearance-none bg-white/10 rounded-full accent-indigo-500 cursor-pointer"
+                            className="flex-1 h-2 appearance-none bg-gray-200 rounded-full accent-indigo-600 cursor-pointer"
                         />
                         <div className="flex gap-2">
                             {[3, 5, 7, 10].map(n => (
@@ -184,8 +184,8 @@ const InterviewSetupPage = () => {
                                     key={n}
                                     onClick={() => set('num_questions', n)}
                                     className={`px-3 py-1.5 rounded-lg text-sm font-medium transition ${form.num_questions === n
-                                            ? 'bg-indigo-500/30 border border-indigo-500/50 text-indigo-300'
-                                            : 'bg-white/5 border border-white/10 text-gray-400 hover:border-white/20'
+                                        ? 'bg-indigo-500/30 border border-indigo-500/50 text-indigo-300'
+                                        : 'bg-white/5 border border-white/10 text-gray-400 hover:border-white/20'
                                         }`}
                                 >
                                     {n}

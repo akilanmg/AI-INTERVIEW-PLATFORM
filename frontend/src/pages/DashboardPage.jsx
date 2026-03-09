@@ -9,15 +9,15 @@ import {
 } from 'lucide-react';
 
 const categoryColors = {
-    SQL: 'bg-blue-500/20 text-blue-400 border-blue-500/30',
-    Coding: 'bg-purple-500/20 text-purple-400 border-purple-500/30',
-    HR: 'bg-green-500/20 text-green-400 border-green-500/30',
+    SQL: 'bg-blue-50 text-blue-600 border-blue-200',
+    Coding: 'bg-purple-50 text-purple-600 border-purple-200',
+    HR: 'bg-green-50 text-green-600 border-green-200',
 };
 
 const difficultyColors = {
-    beginner: 'bg-teal-500/20 text-teal-400',
-    intermediate: 'bg-yellow-500/20 text-yellow-400',
-    advanced: 'bg-red-500/20 text-red-400',
+    beginner: 'bg-teal-50 text-teal-600 border-teal-100',
+    intermediate: 'bg-yellow-50 text-yellow-600 border-yellow-100',
+    advanced: 'bg-red-50 text-red-600 border-red-100',
 };
 
 const DashboardPage = () => {
@@ -65,10 +65,10 @@ const DashboardPage = () => {
                 {/* Header */}
                 <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-10 gap-4">
                     <div className="fade-in-up">
-                        <h1 className="text-3xl font-bold">
+                        <h1 className="text-3xl font-bold text-gray-900">
                             Welcome back, <span className="gradient-text">{user?.name?.split(' ')[0]}! 👋</span>
                         </h1>
-                        <p className="text-gray-400 mt-1">Ready to practice? Your AI interviewer is waiting.</p>
+                        <p className="text-gray-600 mt-1 font-medium">Ready to practice? Your AI interviewer is waiting.</p>
                     </div>
                     <Link
                         to="/setup"
@@ -89,10 +89,10 @@ const DashboardPage = () => {
                     <>
                         <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
                             {[
-                                { icon: <Trophy size={22} className="text-yellow-400" />, label: 'Total Interviews', value: stats?.totalInterviews || 0, color: 'from-yellow-500/10 to-orange-500/10 border-yellow-500/20' },
-                                { icon: <Target size={22} className="text-green-400" />, label: 'Completed', value: stats?.completedInterviews || 0, color: 'from-green-500/10 to-teal-500/10 border-green-500/20' },
-                                { icon: <TrendingUp size={22} className="text-indigo-400" />, label: 'Avg Score', value: stats?.averageScore ? `${stats.averageScore}/10` : 'N/A', color: 'from-indigo-500/10 to-purple-500/10 border-indigo-500/20' },
-                                { icon: <Brain size={22} className="text-cyan-400" />, label: 'AI Sessions', value: sessions.length, color: 'from-cyan-500/10 to-blue-500/10 border-cyan-500/20' },
+                                { icon: <Trophy size={22} className="text-orange-500" />, label: 'Total Interviews', value: stats?.totalInterviews || 0, color: 'from-orange-50 to-amber-50 border-orange-100' },
+                                { icon: <Target size={22} className="text-emerald-500" />, label: 'Completed', value: stats?.completedInterviews || 0, color: 'from-emerald-50 to-teal-50 border-emerald-100' },
+                                { icon: <TrendingUp size={22} className="text-indigo-500" />, label: 'Avg Score', value: stats?.averageScore ? `${stats.averageScore}/10` : 'N/A', color: 'from-indigo-50 to-violet-50 border-indigo-100' },
+                                { icon: <Brain size={22} className="text-cyan-500" />, label: 'AI Sessions', value: sessions.length, color: 'from-cyan-50 to-sky-50 border-cyan-100' },
                             ].map((stat, i) => (
                                 <div
                                     key={i}
@@ -100,12 +100,12 @@ const DashboardPage = () => {
                                     style={{ animationDelay: `${i * 0.1}s` }}
                                 >
                                     <div className="flex items-center justify-between mb-3">
-                                        <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center">
+                                        <div className="w-10 h-10 rounded-xl bg-white shadow-sm border border-gray-100 flex items-center justify-center">
                                             {stat.icon}
                                         </div>
                                     </div>
-                                    <div className="text-3xl font-bold mb-1">{stat.value}</div>
-                                    <div className="text-gray-400 text-sm">{stat.label}</div>
+                                    <div className="text-3xl font-bold mb-1 text-gray-900">{stat.value}</div>
+                                    <div className="text-gray-500 text-sm font-medium">{stat.label}</div>
                                 </div>
                             ))}
                         </div>
@@ -113,9 +113,9 @@ const DashboardPage = () => {
                         {/* Quick actions */}
                         <div className="grid md:grid-cols-3 gap-5 mb-10">
                             {[
-                                { to: '/setup', icon: <Brain size={24} className="text-indigo-400" />, title: 'Start New Interview', desc: 'Practice with AI now', bg: 'from-indigo-500/10 to-purple-500/10 border-indigo-500/20' },
-                                { to: '/analytics', icon: <TrendingUp size={24} className="text-green-400" />, title: 'View Analytics', desc: 'Track your progress', bg: 'from-green-500/10 to-teal-500/10 border-green-500/20' },
-                                { to: '/profile', icon: <Target size={24} className="text-cyan-400" />, title: 'Profile Settings', desc: 'Update your information', bg: 'from-cyan-500/10 to-blue-500/10 border-cyan-500/20' },
+                                { to: '/setup', icon: <Brain size={24} className="text-indigo-600" />, title: 'Start New Interview', desc: 'Practice with AI now', bg: 'from-indigo-50 to-indigo-100/50 border-indigo-100' },
+                                { to: '/analytics', icon: <TrendingUp size={24} className="text-emerald-600" />, title: 'View Analytics', desc: 'Track your progress', bg: 'from-emerald-50 to-emerald-100/50 border-emerald-100' },
+                                { to: '/profile', icon: <Target size={24} className="text-cyan-600" />, title: 'Profile Settings', desc: 'Update your information', bg: 'from-cyan-50 to-cyan-100/50 border-cyan-100' },
                             ].map((item, i) => (
                                 <Link
                                     key={i}
@@ -126,8 +126,8 @@ const DashboardPage = () => {
                                     <div className="flex items-center justify-between">
                                         <div>
                                             <div className="mb-3">{item.icon}</div>
-                                            <h3 className="font-semibold mb-1">{item.title}</h3>
-                                            <p className="text-gray-400 text-sm">{item.desc}</p>
+                                            <h3 className="font-semibold mb-1 text-gray-900">{item.title}</h3>
+                                            <p className="text-gray-500 text-sm">{item.desc}</p>
                                         </div>
                                         <ChevronRight size={20} className="text-gray-500" />
                                     </div>
@@ -139,10 +139,10 @@ const DashboardPage = () => {
                         <div className="glass-card fade-in-up" style={{ animationDelay: '0.5s' }}>
                             <div className="p-6 border-b border-white/5 flex items-center justify-between">
                                 <h2 className="text-lg font-semibold flex items-center gap-2">
-                                    <Clock size={20} className="text-indigo-400" />
+                                    <Clock size={20} className="text-indigo-600" />
                                     Interview History
                                 </h2>
-                                <Link to="/analytics" className="text-indigo-400 hover:text-indigo-300 text-sm transition">
+                                <Link to="/analytics" className="text-indigo-600 hover:text-indigo-700 text-sm font-semibold transition">
                                     View Analytics →
                                 </Link>
                             </div>

@@ -77,8 +77,8 @@ const LandingPage = () => {
 
                 <div className="max-w-6xl mx-auto text-center relative z-10">
                     {/* Badge */}
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 text-indigo-300 text-sm font-medium mb-8 fade-in-up">
-                        <Zap size={14} />
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-indigo-100 bg-indigo-50 text-indigo-700 text-sm font-bold mb-8 shadow-sm fade-in-up">
+                        <Zap size={14} className="fill-current" />
                         Powered by GPT-4 AI Technology
                         <Star size={12} className="fill-current" />
                     </div>
@@ -88,7 +88,7 @@ const LandingPage = () => {
                         <span className="gradient-text">Interview</span> with AI
                     </h1>
 
-                    <p className="text-xl text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed fade-in-up" style={{ animationDelay: '0.2s' }}>
+                    <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-10 leading-relaxed fade-in-up" style={{ animationDelay: '0.2s' }}>
                         Practice technical interviews with an intelligent AI interviewer. Get real-time feedback,
                         scoring, and personalized improvement suggestions to land your dream job.
                     </p>
@@ -113,31 +113,31 @@ const LandingPage = () => {
                     <div className="mt-16 relative float-anim">
                         <div className="glass-card p-8 max-w-2xl mx-auto border-indigo-500/20">
                             <div className="flex items-start gap-4 mb-6">
-                                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center flex-shrink-0">
+                                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center flex-shrink-0 shadow-lg">
                                     <Brain size={18} className="text-white" />
                                 </div>
                                 <div className="flex-1 text-left">
-                                    <p className="text-xs text-indigo-400 font-semibold mb-1">AI INTERVIEWER</p>
-                                    <div className="bg-white/5 rounded-xl p-4 border border-white/10">
-                                        <p className="text-gray-300 text-sm leading-relaxed">
+                                    <p className="text-xs text-indigo-600 font-semibold mb-1">AI INTERVIEWER</p>
+                                    <div className="bg-indigo-50/50 rounded-2xl p-4 border border-indigo-100 shadow-sm">
+                                        <p className="text-gray-700 text-sm leading-relaxed">
                                             "Explain the difference between SQL INNER JOIN and LEFT JOIN. Can you provide a practical example where you would choose one over the other?"
                                         </p>
                                     </div>
                                 </div>
                             </div>
                             <div className="flex items-start gap-4 flex-row-reverse">
-                                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center flex-shrink-0">
+                                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center flex-shrink-0 shadow-lg">
                                     <Users size={18} className="text-white" />
                                 </div>
                                 <div className="flex-1 text-right">
-                                    <p className="text-xs text-green-400 font-semibold mb-1">YOUR ANSWER</p>
-                                    <div className="bg-white/5 rounded-xl p-4 border border-white/10 text-left">
-                                        <p className="text-gray-300 text-sm leading-relaxed">
+                                    <p className="text-xs text-emerald-600 font-semibold mb-1">YOUR ANSWER</p>
+                                    <div className="bg-emerald-50/50 rounded-2xl p-4 border border-emerald-100 text-left shadow-sm">
+                                        <p className="text-gray-700 text-sm leading-relaxed">
                                             "INNER JOIN returns only matching rows from both tables, while LEFT JOIN returns all rows from the left table..."
                                         </p>
                                         <div className="mt-3 flex items-center gap-3">
                                             <span className="score-badge score-high">Score: 8.5/10</span>
-                                            <span className="text-xs text-green-400">✓ Excellent answer!</span>
+                                            <span className="text-xs text-emerald-600 font-medium">✓ Excellent answer!</span>
                                         </div>
                                     </div>
                                 </div>
@@ -176,7 +176,7 @@ const LandingPage = () => {
                             >
                                 <div className="mb-4">{f.icon}</div>
                                 <h3 className="text-lg font-semibold mb-3">{f.title}</h3>
-                                <p className="text-gray-400 text-sm leading-relaxed">{f.desc}</p>
+                                <p className="text-gray-600 text-sm leading-relaxed">{f.desc}</p>
                             </div>
                         ))}
                     </div>
@@ -187,17 +187,17 @@ const LandingPage = () => {
             <section className="py-20 px-6 border-t border-white/5">
                 <div className="max-w-5xl mx-auto">
                     <div className="text-center mb-14">
-                        <h2 className="text-4xl font-bold mb-4">How It <span className="gradient-text">Works</span></h2>
-                        <p className="text-gray-400 text-lg">Get started in minutes with our simple process</p>
+                        <h2 className="text-4xl font-bold mb-4 text-gray-900 leading-tight">How It <span className="gradient-text">Works</span></h2>
+                        <p className="text-gray-600 text-lg font-medium leading-relaxed">Get started in minutes with our simple process</p>
                     </div>
                     <div className="grid md:grid-cols-4 gap-8">
                         {steps.map((step, i) => (
                             <div key={i} className="text-center">
-                                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500/20 to-purple-500/20 border border-indigo-500/30 flex items-center justify-center mx-auto mb-4">
+                                <div className="w-16 h-16 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center mx-auto mb-4">
                                     <span className="text-2xl font-bold gradient-text">{step.num}</span>
                                 </div>
-                                <h3 className="font-semibold mb-2">{step.title}</h3>
-                                <p className="text-gray-400 text-sm">{step.desc}</p>
+                                <h3 className="font-bold text-gray-900 mb-2 leading-tight">{step.title}</h3>
+                                <p className="text-gray-600 text-sm font-medium leading-relaxed">{step.desc}</p>
                                 {i < steps.length - 1 && (
                                     <div className="hidden md:block absolute right-0 top-8 text-gray-600">→</div>
                                 )}
@@ -210,12 +210,13 @@ const LandingPage = () => {
             {/* CTA */}
             <section className="py-20 px-6">
                 <div className="max-w-3xl mx-auto text-center">
-                    <div className="glass-card p-12 border-indigo-500/20 bg-gradient-to-br from-indigo-500/10 to-purple-500/10">
-                        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center mx-auto mb-6 pulse-glow">
+                    <div className="bg-white p-12 rounded-3xl border border-indigo-100 shadow-2xl overflow-hidden relative">
+                        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"></div>
+                        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center mx-auto mb-6 pulse-glow shadow-lg shadow-indigo-100">
                             <Award size={30} className="text-white" />
                         </div>
-                        <h2 className="text-4xl font-bold mb-4">Ready to <span className="gradient-text">Level Up?</span></h2>
-                        <p className="text-gray-400 text-lg mb-8">
+                        <h2 className="text-4xl font-bold mb-4 text-gray-900 leading-tight">Ready to <span className="gradient-text">Level Up?</span></h2>
+                        <p className="text-gray-600 text-lg mb-8 font-medium leading-relaxed">
                             Join thousands of developers who improved their interview skills with AI. Start your practice journey today!
                         </p>
                         <Link
@@ -231,12 +232,17 @@ const LandingPage = () => {
             </section>
 
             {/* Footer */}
-            <footer className="border-t border-white/5 py-8 px-6 text-center text-gray-500 text-sm">
-                <div className="flex items-center justify-center gap-2 mb-2">
-                    <Brain size={16} className="text-indigo-400" />
-                    <span className="font-bold text-gray-400">InterviewAI</span>
+            <footer className="border-t border-gray-100 py-12 px-6 text-center text-gray-500 text-sm bg-white">
+                <div className="flex items-center justify-center gap-2 mb-3">
+                    <Brain size={20} className="text-indigo-600" />
+                    <span className="font-bold text-gray-900 text-lg">InterviewAI</span>
                 </div>
-                <p>© 2024 InterviewAI Platform. Built with ❤️ and AI.</p>
+                <p className="mb-2">© 2024 InterviewAI Platform. Built with ❤️ and AI.</p>
+                <div className="flex items-center justify-center gap-6 mt-4">
+                    <a href="#" className="hover:text-indigo-600 transition">Privacy Policy</a>
+                    <a href="#" className="hover:text-indigo-600 transition">Terms of Service</a>
+                    <a href="#" className="hover:text-indigo-600 transition">Contact Us</a>
+                </div>
             </footer>
         </div>
     );

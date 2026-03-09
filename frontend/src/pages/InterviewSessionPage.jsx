@@ -179,15 +179,15 @@ const InterviewSessionPage = () => {
                             <Brain size={20} className="text-white" />
                         </div>
                         <div>
-                            <div className="font-semibold text-sm">{state?.role_selected} — {state?.category}</div>
-                            <div className="text-xs text-gray-500 capitalize">{state?.difficulty} level</div>
+                            <div className="font-semibold text-sm text-gray-900">{state?.role_selected} — {state?.category}</div>
+                            <div className="text-xs text-gray-500 capitalize font-medium">{state?.difficulty} level</div>
                         </div>
                     </div>
 
                     {/* Timer */}
-                    <div className={`flex items-center gap-2 px-4 py-2 rounded-xl border ${timeLeft <= 30 ? 'border-red-500/40 bg-red-500/10 text-red-400' :
-                            timeLeft <= 60 ? 'border-yellow-500/40 bg-yellow-500/10 text-yellow-400' :
-                                'border-white/10 bg-white/5 text-gray-300'
+                    <div className={`flex items-center gap-2 px-4 py-2 rounded-xl border ${timeLeft <= 30 ? 'border-red-200 bg-red-50 text-red-600' :
+                        timeLeft <= 60 ? 'border-yellow-200 bg-yellow-50 text-yellow-600' :
+                            'border-gray-200 bg-white text-gray-700 shadow-sm'
                         }`}>
                         <Clock size={16} />
                         <span className="font-mono font-bold text-lg">{formatTime(timeLeft)}</span>
@@ -197,8 +197,8 @@ const InterviewSessionPage = () => {
                 {/* Progress bar */}
                 <div className="mb-8">
                     <div className="flex items-center justify-between mb-2">
-                        <span className="text-sm text-gray-400">Question {currentIndex + 1} of {numQuestions}</span>
-                        <span className="text-sm text-indigo-400 font-medium">{Math.round(progress)}% Complete</span>
+                        <span className="text-sm text-gray-500 font-medium">Question {currentIndex + 1} of {numQuestions}</span>
+                        <span className="text-sm text-indigo-600 font-bold">{Math.round(progress)}% Complete</span>
                     </div>
                     <div className="progress-bar">
                         <div className="progress-fill" style={{ width: `${progress}%` }}></div>
@@ -208,19 +208,19 @@ const InterviewSessionPage = () => {
                 {/* Question Card */}
                 <div className="glass-card p-7 mb-6 border-indigo-500/20 fade-in-up">
                     <div className="flex items-center gap-2 mb-5">
-                        <div className="w-8 h-8 rounded-lg bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center">
-                            <Brain size={16} className="text-indigo-400" />
+                        <div className="w-8 h-8 rounded-lg bg-indigo-50 border border-indigo-200 flex items-center justify-center">
+                            <Brain size={16} className="text-indigo-600" />
                         </div>
-                        <span className="text-sm font-semibold text-indigo-400">AI Interviewer</span>
+                        <span className="text-sm font-bold text-indigo-600">AI Interviewer</span>
                     </div>
 
                     {loading ? (
                         <div className="flex items-center gap-3 py-4">
-                            <Loader2 size={22} className="animate-spin text-indigo-400" />
-                            <span className="text-gray-400">Generating your question...</span>
+                            <Loader2 size={22} className="animate-spin text-indigo-600" />
+                            <span className="text-gray-500 font-medium">Generating your question...</span>
                         </div>
                     ) : (
-                        <p className="text-lg text-gray-100 leading-relaxed font-medium">
+                        <p className="text-lg text-gray-800 leading-relaxed font-semibold">
                             {question?.question_text}
                         </p>
                     )}
@@ -230,8 +230,8 @@ const InterviewSessionPage = () => {
                 {!evaluation && !loading && (
                     <div className="glass-card p-7 mb-6 fade-in-up" style={{ animationDelay: '0.1s' }}>
                         <div className="flex items-center justify-between mb-4">
-                            <h3 className="font-semibold flex items-center gap-2">
-                                <span className="w-6 h-6 rounded-lg bg-green-500/20 border border-green-500/30 text-green-400 flex items-center justify-center text-xs font-bold">✏</span>
+                            <h3 className="font-semibold flex items-center gap-2 text-gray-900">
+                                <span className="w-6 h-6 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center text-xs font-bold">✏</span>
                                 Your Answer
                             </h3>
 
@@ -239,8 +239,8 @@ const InterviewSessionPage = () => {
                             <button
                                 onClick={recording ? stopRecording : startRecording}
                                 className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium transition ${recording
-                                        ? 'bg-red-500/20 border border-red-500/40 text-red-400 animate-pulse'
-                                        : 'bg-white/5 border border-white/10 text-gray-400 hover:border-purple-500/40 hover:text-purple-400'
+                                    ? 'bg-red-50 border border-red-200 text-red-600 animate-pulse'
+                                    : 'bg-gray-50 border border-gray-200 text-gray-600 hover:border-indigo-200 hover:text-indigo-600'
                                     }`}
                             >
                                 {recording ? <MicOff size={16} /> : <Mic size={16} />}
@@ -288,43 +288,43 @@ const InterviewSessionPage = () => {
                 {evaluation && (
                     <div className="space-y-5 fade-in-up">
                         {/* Score */}
-                        <div className="glass-card p-7 border-indigo-500/20 bg-gradient-to-br from-indigo-500/5 to-purple-500/5">
+                        <div className="glass-card p-7 border-indigo-100 bg-gradient-to-br from-indigo-50/50 to-purple-50/50">
                             <div className="flex items-center justify-between mb-5">
-                                <h3 className="text-lg font-semibold flex items-center gap-2">
-                                    <CheckCircle size={20} className="text-green-400" />
+                                <h3 className="text-lg font-semibold flex items-center gap-2 text-gray-900">
+                                    <CheckCircle size={20} className="text-emerald-600" />
                                     AI Evaluation
                                 </h3>
-                                <div className={`score-badge text-lg px-4 py-2 ${evaluation.score >= 7 ? 'score-high' :
-                                        evaluation.score >= 5 ? 'score-mid' : 'score-low'
+                                <div className={`score-badge text-lg px-4 py-2 shadow-sm ${evaluation.score >= 7 ? 'score-high' :
+                                    evaluation.score >= 5 ? 'score-mid' : 'score-low'
                                     }`}>
                                     {evaluation.score}/10
                                 </div>
                             </div>
-                            <p className="text-gray-300 leading-relaxed">{evaluation.overall_feedback}</p>
+                            <p className="text-gray-700 leading-relaxed font-medium">{evaluation.overall_feedback}</p>
                         </div>
 
                         {/* Strengths & Weaknesses */}
                         <div className="grid md:grid-cols-2 gap-5">
-                            <div className="glass-card p-6 border-green-500/20 bg-green-500/5">
-                                <h4 className="font-semibold text-green-400 mb-3 flex items-center gap-2">
+                            <div className="glass-card p-6 border-emerald-100 bg-emerald-50/50">
+                                <h4 className="font-bold text-emerald-700 mb-3 flex items-center gap-2">
                                     <CheckCircle size={16} /> Strengths
                                 </h4>
                                 <ul className="space-y-2">
                                     {evaluation.strengths?.map((s, i) => (
-                                        <li key={i} className="text-sm text-gray-300 flex items-start gap-2">
-                                            <span className="text-green-400 mt-0.5">•</span> {s}
+                                        <li key={i} className="text-sm text-gray-700 flex items-start gap-2">
+                                            <span className="text-emerald-500 mt-0.5">•</span> {s}
                                         </li>
                                     ))}
                                 </ul>
                             </div>
-                            <div className="glass-card p-6 border-yellow-500/20 bg-yellow-500/5">
-                                <h4 className="font-semibold text-yellow-400 mb-3 flex items-center gap-2">
+                            <div className="glass-card p-6 border-orange-100 bg-orange-50/50">
+                                <h4 className="font-bold text-orange-700 mb-3 flex items-center gap-2">
                                     <AlertCircle size={16} /> Areas to Improve
                                 </h4>
                                 <ul className="space-y-2">
                                     {evaluation.weaknesses?.map((w, i) => (
-                                        <li key={i} className="text-sm text-gray-300 flex items-start gap-2">
-                                            <span className="text-yellow-400 mt-0.5">•</span> {w}
+                                        <li key={i} className="text-sm text-gray-700 flex items-start gap-2">
+                                            <span className="text-orange-500 mt-0.5">•</span> {w}
                                         </li>
                                     ))}
                                 </ul>
@@ -332,12 +332,12 @@ const InterviewSessionPage = () => {
                         </div>
 
                         {/* Improvements */}
-                        <div className="glass-card p-6 border-cyan-500/20 bg-cyan-500/5">
-                            <h4 className="font-semibold text-cyan-400 mb-3">💡 Improvement Tips</h4>
+                        <div className="glass-card p-6 border-indigo-100 bg-indigo-50/50">
+                            <h4 className="font-bold text-indigo-700 mb-3">💡 Improvement Tips</h4>
                             <ul className="space-y-2">
                                 {evaluation.improvements?.map((tip, i) => (
-                                    <li key={i} className="text-sm text-gray-300 flex items-start gap-2">
-                                        <span className="text-cyan-400 mt-0.5">{i + 1}.</span> {tip}
+                                    <li key={i} className="text-sm text-gray-700 flex items-start gap-2">
+                                        <span className="text-indigo-500 font-bold mt-0.5">{i + 1}.</span> {tip}
                                     </li>
                                 ))}
                             </ul>
@@ -345,9 +345,9 @@ const InterviewSessionPage = () => {
 
                         {/* Ideal answer */}
                         {evaluation.ideal_answer_summary && (
-                            <div className="glass-card p-6 border-purple-500/20 bg-purple-500/5">
-                                <h4 className="font-semibold text-purple-400 mb-2">📚 Ideal Answer Summary</h4>
-                                <p className="text-sm text-gray-300 leading-relaxed">{evaluation.ideal_answer_summary}</p>
+                            <div className="glass-card p-6 border-purple-100 bg-purple-50/50">
+                                <h4 className="font-bold text-purple-700 mb-2">📚 Ideal Answer Summary</h4>
+                                <p className="text-sm text-gray-700 leading-relaxed font-medium">{evaluation.ideal_answer_summary}</p>
                             </div>
                         )}
 

@@ -42,19 +42,19 @@ const SignupPage = () => {
             <div className="w-full max-w-4xl relative z-10 grid md:grid-cols-2 gap-8 items-center">
                 {/* Left - Info */}
                 <div className="hidden md:block fade-in-up">
-                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center mb-6 pulse-glow">
+                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center mb-6 pulse-glow shadow-lg shadow-indigo-100">
                         <Brain size={30} className="text-white" />
                     </div>
-                    <h2 className="text-4xl font-bold mb-4">
+                    <h2 className="text-4xl font-bold mb-4 text-gray-900 leading-tight">
                         Start Your Interview <span className="gradient-text">Journey</span>
                     </h2>
-                    <p className="text-gray-400 text-lg mb-8 leading-relaxed">
+                    <p className="text-gray-600 text-lg mb-8 leading-relaxed font-medium">
                         Join thousands of developers who are already practicing smarter with AI-powered mock interviews.
                     </p>
-                    <ul className="space-y-3">
+                    <ul className="space-y-4">
                         {perks.map((perk, i) => (
-                            <li key={i} className="flex items-center gap-3 text-gray-300">
-                                <CheckCircle size={18} className="text-indigo-400 flex-shrink-0" />
+                            <li key={i} className="flex items-center gap-3 text-gray-700 font-bold">
+                                <CheckCircle size={18} className="text-indigo-600 flex-shrink-0" />
                                 {perk}
                             </li>
                         ))}
@@ -70,13 +70,13 @@ const SignupPage = () => {
                         <h1 className="text-2xl font-bold">Create Account</h1>
                     </div>
 
-                    <div className="glass-card p-8 border-indigo-500/20">
-                        <h3 className="text-xl font-semibold mb-6 hidden md:block">Create your account</h3>
+                    <div className="bg-white p-8 rounded-2xl border border-indigo-100 shadow-2xl">
+                        <h3 className="text-xl font-bold mb-6 hidden md:block text-gray-900">Create your account</h3>
                         <form onSubmit={handleSubmit} className="space-y-4">
                             <div>
-                                <label className="block text-sm font-medium text-gray-300 mb-2">Full Name</label>
+                                <label className="block text-sm font-bold text-gray-700 mb-2">Full Name</label>
                                 <div className="relative">
-                                    <User size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
+                                    <User size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
                                     <input
                                         name="name" type="text"
                                         className="input-field pl-12"
@@ -156,9 +156,9 @@ const SignupPage = () => {
                             </button>
                         </form>
 
-                        <p className="text-center text-gray-400 text-sm mt-5">
+                        <p className="text-center text-gray-500 text-sm mt-5 font-medium">
                             Already have an account?{' '}
-                            <Link to="/login" className="text-indigo-400 hover:text-indigo-300 font-medium transition">
+                            <Link to="/login" className="text-indigo-600 hover:text-indigo-700 font-bold transition">
                                 Sign in →
                             </Link>
                         </p>
