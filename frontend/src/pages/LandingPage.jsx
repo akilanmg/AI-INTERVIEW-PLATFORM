@@ -83,12 +83,12 @@ const LandingPage = () => {
                         <Star size={12} className="fill-current" />
                     </div>
 
-                    <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-6 fade-in-up" style={{ animationDelay: '0.1s' }}>
+                    <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6 fade-in-up" style={{ animationDelay: '0.1s' }}>
                         Ace Your Next<br />
                         <span className="gradient-text">Interview</span> with AI
                     </h1>
 
-                    <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-10 leading-relaxed fade-in-up" style={{ animationDelay: '0.2s' }}>
+                    <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto mb-10 leading-relaxed fade-in-up" style={{ animationDelay: '0.2s' }}>
                         Practice technical interviews with an intelligent AI interviewer. Get real-time feedback,
                         scoring, and personalized improvement suggestions to land your dream job.
                     </p>
@@ -96,48 +96,48 @@ const LandingPage = () => {
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4 fade-in-up" style={{ animationDelay: '0.3s' }}>
                         <Link
                             to={user ? '/setup' : '/signup'}
-                            className="btn-primary flex items-center gap-2 text-lg px-8 py-4"
+                            className="btn-primary flex items-center gap-2 text-base md:text-lg px-8 py-4 w-full sm:w-auto justify-center"
                         >
                             <Brain size={20} />
                             Start Mock Interview
                             <ChevronRight size={18} />
                         </Link>
                         {!user && (
-                            <Link to="/login" className="btn-secondary text-lg px-8 py-4">
+                            <Link to="/login" className="btn-secondary text-base md:text-lg px-8 py-4 w-full sm:w-auto justify-center">
                                 Sign In
                             </Link>
                         )}
                     </div>
 
                     {/* Hero visual */}
-                    <div className="mt-16 relative float-anim">
-                        <div className="glass-card p-8 max-w-2xl mx-auto border-indigo-500/20">
+                    <div className="mt-20 relative float-anim px-4">
+                        <div className="glass-card p-4 sm:p-8 max-w-[90vw] md:max-w-2xl mx-auto border-indigo-500/20 shadow-2xl">
                             <div className="flex items-start gap-4 mb-6">
-                                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center flex-shrink-0 shadow-lg">
+                                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center flex-shrink-0 shadow-lg">
                                     <Brain size={18} className="text-white" />
                                 </div>
-                                <div className="flex-1 text-left">
-                                    <p className="text-xs text-indigo-600 font-semibold mb-1">AI INTERVIEWER</p>
-                                    <div className="bg-indigo-50/50 rounded-2xl p-4 border border-indigo-100 shadow-sm">
-                                        <p className="text-gray-700 text-sm leading-relaxed">
+                                <div className="flex-1 text-left min-w-0">
+                                    <p className="text-[10px] text-indigo-600 font-bold mb-1 tracking-wider uppercase">AI INTERVIEWER</p>
+                                    <div className="bg-indigo-50/50 rounded-2xl p-3 sm:p-4 border border-indigo-100 shadow-sm">
+                                        <p className="text-gray-700 text-xs sm:text-sm leading-relaxed">
                                             "Explain the difference between SQL INNER JOIN and LEFT JOIN. Can you provide a practical example where you would choose one over the other?"
                                         </p>
                                     </div>
                                 </div>
                             </div>
                             <div className="flex items-start gap-4 flex-row-reverse">
-                                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center flex-shrink-0 shadow-lg">
+                                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center flex-shrink-0 shadow-lg">
                                     <Users size={18} className="text-white" />
                                 </div>
-                                <div className="flex-1 text-right">
-                                    <p className="text-xs text-emerald-600 font-semibold mb-1">YOUR ANSWER</p>
-                                    <div className="bg-emerald-50/50 rounded-2xl p-4 border border-emerald-100 text-left shadow-sm">
-                                        <p className="text-gray-700 text-sm leading-relaxed">
+                                <div className="flex-1 text-right min-w-0">
+                                    <p className="text-[10px] text-emerald-600 font-bold mb-1 tracking-wider uppercase">YOUR ANSWER</p>
+                                    <div className="bg-emerald-50/50 rounded-2xl p-3 sm:p-4 border border-emerald-100 text-left shadow-sm">
+                                        <p className="text-gray-700 text-xs sm:text-sm leading-relaxed">
                                             "INNER JOIN returns only matching rows from both tables, while LEFT JOIN returns all rows from the left table..."
                                         </p>
-                                        <div className="mt-3 flex items-center gap-3">
-                                            <span className="score-badge score-high">Score: 8.5/10</span>
-                                            <span className="text-xs text-emerald-600 font-medium">✓ Excellent answer!</span>
+                                        <div className="mt-3 flex flex-wrap items-center gap-2">
+                                            <span className="score-badge score-high text-[10px] sm:text-xs">Score: 8.5/10</span>
+                                            <span className="text-[10px] sm:text-xs text-emerald-600 font-bold">✓ Excellent answer!</span>
                                         </div>
                                     </div>
                                 </div>
@@ -148,12 +148,12 @@ const LandingPage = () => {
             </section>
 
             {/* Stats */}
-            <section className="py-16 px-6 border-y border-white/5">
-                <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
+            <section className="py-20 px-6 border-y border-gray-100">
+                <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                     {stats.map((stat, i) => (
-                        <div key={i} className="text-center">
-                            <div className="text-4xl font-bold gradient-text mb-2">{stat.value}</div>
-                            <div className="text-gray-400 text-sm">{stat.label}</div>
+                        <div key={i} className="text-center p-6 bg-white border border-gray-50 rounded-3xl shadow-sm hover:shadow-md transition-shadow">
+                            <div className="text-4xl md:text-5xl font-black gradient-text mb-2 tracking-tight">{stat.value}</div>
+                            <div className="text-gray-500 font-bold uppercase text-xs tracking-widest">{stat.label}</div>
                         </div>
                     ))}
                 </div>
@@ -162,9 +162,9 @@ const LandingPage = () => {
             {/* Features */}
             <section className="py-20 px-6">
                 <div className="max-w-6xl mx-auto">
-                    <div className="text-center mb-14">
-                        <h2 className="text-4xl font-bold mb-4">Everything You Need to <span className="gradient-text">Succeed</span></h2>
-                        <p className="text-gray-400 text-lg max-w-xl mx-auto">
+                    <div className="text-center mb-20 px-4">
+                        <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-6 text-gray-900 leading-tight">Everything You Need to <span className="gradient-text">Succeed</span></h2>
+                        <p className="text-gray-600 font-medium text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
                             A complete interview preparation platform with cutting-edge AI technology
                         </p>
                     </div>

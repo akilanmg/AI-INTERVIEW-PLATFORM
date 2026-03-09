@@ -89,9 +89,9 @@ const SignupPage = () => {
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium text-gray-300 mb-2">Email Address</label>
+                                <label className="block text-sm font-bold text-gray-700 mb-2">Email Address</label>
                                 <div className="relative">
-                                    <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
+                                    <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
                                     <input
                                         name="email" type="email"
                                         className="input-field pl-12"
@@ -104,9 +104,9 @@ const SignupPage = () => {
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium text-gray-300 mb-2">Password</label>
+                                <label className="block text-sm font-bold text-gray-700 mb-2">Password</label>
                                 <div className="relative">
-                                    <Lock size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
+                                    <Lock size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
                                     <input
                                         name="password" type={showPass ? 'text' : 'password'}
                                         className="input-field pl-12 pr-12"
@@ -116,16 +116,16 @@ const SignupPage = () => {
                                         required
                                     />
                                     <button type="button" onClick={() => setShowPass(!showPass)}
-                                        className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-300 transition">
+                                        className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-indigo-600 transition">
                                         {showPass ? <EyeOff size={18} /> : <Eye size={18} />}
                                     </button>
                                 </div>
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium text-gray-300 mb-2">Confirm Password</label>
+                                <label className="block text-sm font-bold text-gray-700 mb-2">Confirm Password</label>
                                 <div className="relative">
-                                    <Lock size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
+                                    <Lock size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
                                     <input
                                         name="confirm" type="password"
                                         className="input-field pl-12"

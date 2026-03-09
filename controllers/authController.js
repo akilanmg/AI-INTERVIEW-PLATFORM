@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const supabase = require('../config/supabase');
+const sendEmail = require('../utils/sendEmail');
 
 const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -47,6 +48,27 @@ const register = async (req, res) => {
 
         const token = generateToken(user.id);
 
+        // Send registration success email (async)
+        sendEmail({
+            email: user.email,
+            subject: 'Welcome to InterviewAI! 🚀',
+            message: `
+                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 10px;">
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <h1 style="color: #4f46e5;">InterviewAI</h1>
+                    </div>
+                    <p>Hello <strong>${user.name}</strong>,</p>
+                    <p>Thank you for joining <strong>InterviewAI</strong>! We're excited to help you ace your next interview.</p>
+                    <p>With our AI-powered platform, you can practice technical and behavioral interviews with real-time feedback and detailed analytics.</p>
+                    <div style="margin-top: 30px; text-align: center;">
+                        <a href="${process.env.FRONTEND_URL || 'http://localhost:5173'}/dashboard" style="background-color: #4f46e5; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: bold;">Start Practicing Now</a>
+                    </div>
+                    <hr style="margin-top: 40px; border: 0; border-top: 1px solid #e0e0e0;">
+                    <p style="text-align: center; color: #94a3b8; font-size: 12px;">&copy; 2024 InterviewAI Platform. Built with ❤️ and AI.</p>
+                </div>
+            `,
+        }).catch(err => console.error('Email send error:', err));
+
         res.status(201).json({
             success: true,
             message: 'User registered successfully',
@@ -88,6 +110,31 @@ const login = async (req, res) => {
         }
 
         const token = generateToken(user.id);
+
+        // Send login success email (async, don't wait for it to finish)
+        sendEmail({
+            email: user.email,
+            subject: 'Login Successful - InterviewAI',
+            message: `
+                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 10px;">
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <h1 style="color: #4f46e5;">InterviewAI</h1>
+                    </div>
+                    <p>Hello <strong>${user.name}</strong>,</p>
+                    <p>This is a confirmation that you have successfully logged into your <strong>InterviewAI</strong> account.</p>
+                    <p>If this wasn't you, please change your password immediately or contact our support.</p>
+                    <div style="margin-top: 30px; padding: 20px; background-color: #f8fafc; border-radius: 8px;">
+                        <p style="margin: 0; color: #64748b; font-size: 14px;">Log Details:</p>
+                        <p style="margin: 5px 0 0 0; color: #1e293b; font-weight: bold;">Time: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}</p>
+                    </div>
+                    <div style="margin-top: 30px; text-align: center;">
+                        <a href="${process.env.FRONTEND_URL || 'http://localhost:5173'}/dashboard" style="background-color: #4f46e5; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: bold;">Go to Dashboard</a>
+                    </div>
+                    <hr style="margin-top: 40px; border: 0; border-top: 1px solid #e0e0e0;">
+                    <p style="text-align: center; color: #94a3b8; font-size: 12px;">&copy; 2024 InterviewAI Platform. Built with ❤️ and AI.</p>
+                </div>
+            `,
+        }).catch(err => console.error('Email send error:', err));
 
         res.json({
             success: true,
