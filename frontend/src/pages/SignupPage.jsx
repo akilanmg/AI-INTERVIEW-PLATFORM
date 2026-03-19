@@ -35,26 +35,28 @@ const SignupPage = () => {
     const perks = ['AI-powered interview practice', 'Instant feedback & scoring', 'Performance analytics', '100% free to get started'];
 
     return (
-        <div className="hero-bg min-h-screen flex items-center justify-center px-6 py-12">
-            <div className="absolute top-20 left-10 w-72 h-72 bg-indigo-500/10 rounded-full blur-[80px]"></div>
-            <div className="absolute bottom-10 right-10 w-96 h-96 bg-purple-500/8 rounded-full blur-[100px]"></div>
+        <div className="hero-bg min-h-screen min-h-[100dvh] flex items-center justify-center px-4 sm:px-6 py-8 sm:py-12">
+            <div className="absolute top-16 left-[5%] w-40 h-40 sm:w-64 sm:h-64 bg-indigo-400/8 rounded-full blur-[60px] sm:blur-[80px] pointer-events-none" aria-hidden="true" />
+            <div className="absolute bottom-10 right-[5%] w-52 h-52 sm:w-80 sm:h-80 bg-purple-400/6 rounded-full blur-[80px] sm:blur-[100px] pointer-events-none" aria-hidden="true" />
 
-            <div className="w-full max-w-4xl relative z-10 grid md:grid-cols-2 gap-8 items-center">
-                {/* Left - Info */}
-                <div className="hidden md:block fade-in-up">
-                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center mb-6 pulse-glow shadow-lg shadow-indigo-100">
-                        <Brain size={30} className="text-white" />
+            <div className="w-full max-w-4xl relative z-10 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 lg:gap-12 items-center mx-auto">
+                {/* Left - Info (Desktop only) */}
+                <div className="hidden md:flex flex-col fade-in-up">
+                    <div className="w-14 h-14 lg:w-16 lg:h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center mb-5 pulse-glow shadow-lg shrink-0">
+                        <Brain size={28} className="text-white" />
                     </div>
-                    <h2 className="text-4xl font-bold mb-4 text-gray-900 leading-tight">
+                    <h2 className="text-2xl lg:text-3xl xl:text-4xl font-bold mb-3 text-gray-900 leading-tight">
                         Start Your Interview <span className="gradient-text">Journey</span>
                     </h2>
-                    <p className="text-gray-600 text-lg mb-8 leading-relaxed font-medium">
+                    <p className="text-gray-500 text-sm lg:text-base mb-6 lg:mb-8 leading-relaxed font-medium">
                         Join thousands of developers who are already practicing smarter with AI-powered mock interviews.
                     </p>
-                    <ul className="space-y-4">
+                    <ul className="space-y-3">
                         {perks.map((perk, i) => (
-                            <li key={i} className="flex items-center gap-3 text-gray-700 font-bold">
-                                <CheckCircle size={18} className="text-indigo-600 flex-shrink-0" />
+                            <li key={i} className="flex items-center gap-3 text-gray-700 font-semibold text-sm lg:text-base">
+                                <div className="w-6 h-6 rounded-full bg-indigo-50 flex items-center justify-center flex-shrink-0">
+                                    <CheckCircle size={14} className="text-indigo-600" />
+                                </div>
                                 {perk}
                             </li>
                         ))}
@@ -62,19 +64,20 @@ const SignupPage = () => {
                 </div>
 
                 {/* Right - Form */}
-                <div className="fade-in-up" style={{ animationDelay: '0.1s' }}>
+                <div className="fade-in-up w-full" style={{ animationDelay: '0.1s' }}>
                     <div className="text-center mb-6 md:hidden">
-                        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center mx-auto mb-3">
+                        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center mx-auto mb-3 shadow-lg">
                             <Brain size={26} className="text-white" />
                         </div>
-                        <h1 className="text-2xl font-bold">Create Account</h1>
+                        <h1 className="text-2xl font-bold text-gray-900">Create Account</h1>
+                        <p className="text-gray-500 text-sm mt-1 font-medium">Start your interview journey today</p>
                     </div>
 
-                    <div className="bg-white p-8 rounded-2xl border border-indigo-100 shadow-2xl">
-                        <h3 className="text-xl font-bold mb-6 hidden md:block text-gray-900">Create your account</h3>
+                    <div className="bg-white p-5 sm:p-6 md:p-7 rounded-2xl border border-gray-100 shadow-xl">
+                        <h3 className="text-lg font-bold mb-5 hidden md:block text-gray-900">Create your account</h3>
                         <form onSubmit={handleSubmit} className="space-y-4">
-                            <div>
-                                <label className="block text-sm font-bold text-gray-700 mb-2">Full Name</label>
+                            <div className="form-group">
+                                <label className="block text-sm font-semibold text-gray-700 mb-2">Full Name</label>
                                 <div className="relative">
                                     <User size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
                                     <input
@@ -84,12 +87,13 @@ const SignupPage = () => {
                                         value={form.name}
                                         onChange={handleChange}
                                         required
+                                        autoComplete="name"
                                     />
                                 </div>
                             </div>
 
-                            <div>
-                                <label className="block text-sm font-bold text-gray-700 mb-2">Email Address</label>
+                            <div className="form-group">
+                                <label className="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
                                 <div className="relative">
                                     <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
                                     <input
@@ -99,12 +103,13 @@ const SignupPage = () => {
                                         value={form.email}
                                         onChange={handleChange}
                                         required
+                                        autoComplete="email"
                                     />
                                 </div>
                             </div>
 
-                            <div>
-                                <label className="block text-sm font-bold text-gray-700 mb-2">Password</label>
+                            <div className="form-group">
+                                <label className="block text-sm font-semibold text-gray-700 mb-2">Password</label>
                                 <div className="relative">
                                     <Lock size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
                                     <input
@@ -114,16 +119,19 @@ const SignupPage = () => {
                                         value={form.password}
                                         onChange={handleChange}
                                         required
+                                        autoComplete="new-password"
                                     />
                                     <button type="button" onClick={() => setShowPass(!showPass)}
-                                        className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-indigo-600 transition">
+                                        className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-indigo-500 transition p-1"
+                                        aria-label={showPass ? 'Hide password' : 'Show password'}
+                                    >
                                         {showPass ? <EyeOff size={18} /> : <Eye size={18} />}
                                     </button>
                                 </div>
                             </div>
 
-                            <div>
-                                <label className="block text-sm font-bold text-gray-700 mb-2">Confirm Password</label>
+                            <div className="form-group">
+                                <label className="block text-sm font-semibold text-gray-700 mb-2">Confirm Password</label>
                                 <div className="relative">
                                     <Lock size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
                                     <input
@@ -133,6 +141,7 @@ const SignupPage = () => {
                                         value={form.confirm}
                                         onChange={handleChange}
                                         required
+                                        autoComplete="new-password"
                                     />
                                 </div>
                             </div>
@@ -140,11 +149,11 @@ const SignupPage = () => {
                             <button
                                 type="submit"
                                 disabled={loading}
-                                className="btn-primary w-full flex items-center justify-center gap-2 py-4 text-base mt-2"
+                                className="btn-primary w-full flex items-center justify-center gap-2 py-3.5 text-base min-h-[48px] mt-2"
                             >
                                 {loading ? (
                                     <>
-                                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                                         Creating account...
                                     </>
                                 ) : (

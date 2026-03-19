@@ -16,9 +16,9 @@ const ScoreRing = ({ score }) => {
     const color = score >= 7 ? '#10b981' : score >= 5 ? '#f59e0b' : '#ef4444';
 
     return (
-        <div className="relative w-36 h-36 mx-auto">
+        <div className="relative w-28 h-28 sm:w-36 sm:h-36 mx-auto">
             <svg className="w-full h-full -rotate-90" viewBox="0 0 120 120">
-                <circle cx="60" cy="60" r={r} fill="none" stroke="rgba(0,0,0,0.05)" strokeWidth="10" />
+                <circle cx="60" cy="60" r={r} fill="none" stroke="rgba(0,0,0,0.04)" strokeWidth="10" />
                 <circle
                     cx="60" cy="60" r={r} fill="none"
                     stroke={color} strokeWidth="10"
@@ -28,8 +28,8 @@ const ScoreRing = ({ score }) => {
                 />
             </svg>
             <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <span className="text-4xl font-bold" style={{ color }}>{score}</span>
-                <span className="text-xs text-gray-500 font-bold">/ 10</span>
+                <span className="text-3xl sm:text-4xl font-bold" style={{ color }}>{score}</span>
+                <span className="text-xs text-gray-400 font-bold">/ 10</span>
             </div>
         </div>
     );
@@ -63,10 +63,10 @@ const ResultsPage = () => {
 
     if (loading) {
         return (
-            <div className="bg-white min-h-screen flex items-center justify-center">
+            <div className="hero-bg min-h-screen min-h-[100dvh] flex items-center justify-center">
                 <div className="text-center">
-                    <Loader2 size={48} className="animate-spin text-indigo-600 mx-auto mb-4" />
-                    <p className="text-gray-600">Loading your results...</p>
+                    <Loader2 size={44} className="animate-spin text-indigo-600 mx-auto mb-4" />
+                    <p className="text-gray-500 font-medium">Loading your results...</p>
                 </div>
             </div>
         );
@@ -74,10 +74,10 @@ const ResultsPage = () => {
 
     if (!session) {
         return (
-            <div className="bg-white min-h-screen flex items-center justify-center text-center">
+            <div className="hero-bg min-h-screen min-h-[100dvh] flex items-center justify-center text-center px-6">
                 <div>
-                    <AlertCircle size={48} className="text-red-500 mx-auto mb-4" />
-                    <h2 className="text-xl font-semibold text-red-500 mb-2">Results Not Found</h2>
+                    <AlertCircle size={48} className="text-red-400 mx-auto mb-4" />
+                    <h2 className="text-xl font-bold text-gray-900 mb-2">Results Not Found</h2>
                     <Link to="/dashboard" className="btn-primary inline-flex mt-4">Go to Dashboard</Link>
                 </div>
             </div>
@@ -89,63 +89,64 @@ const ResultsPage = () => {
     const answeredCount = questions.filter(q => q.answers?.length > 0).length;
 
     return (
-        <div className="bg-white min-h-screen py-12 px-6">
+        <div className="hero-bg min-h-screen min-h-[100dvh] py-5 sm:py-8 md:py-12 px-4 sm:px-6">
             <div className="max-w-4xl mx-auto">
                 {/* Overall Score Card */}
-                <div className="bg-white p-10 mb-8 text-center border border-indigo-100 shadow-xl fade-in-up">
-                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-yellow-500 to-orange-500 flex items-center justify-center mx-auto mb-5">
-                        <Trophy size={26} className="text-white" />
+                <div className="bg-white p-5 sm:p-7 md:p-10 mb-5 sm:mb-8 text-center border border-indigo-100 shadow-xl fade-in-up rounded-2xl overflow-hidden relative">
+                    <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500" />
+                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-yellow-500 to-orange-500 flex items-center justify-center mx-auto mb-4 shadow-lg">
+                        <Trophy size={24} className="text-white" />
                     </div>
-                    <h1 className="text-3xl font-bold mb-2 text-gray-900">Interview Complete!</h1>
-                    <p className="text-gray-600 font-medium mb-8">{scoreLabel}</p>
+                    <h1 className="text-xl sm:text-2xl md:text-3xl font-bold mb-2 text-gray-900">Interview Complete!</h1>
+                    <p className="text-gray-500 font-medium mb-6 sm:mb-8 text-sm sm:text-base">{scoreLabel}</p>
 
                     <ScoreRing score={score} />
 
-                    <p className="text-gray-400 text-sm mt-6 mb-6">Overall Score</p>
+                    <p className="text-gray-400 text-xs sm:text-sm mt-5 mb-5 font-medium">Overall Score</p>
 
                     {/* Mini stats */}
-                    <div className="grid grid-cols-3 gap-6 mt-2">
-                        <div className="text-center">
-                            <div className="text-2xl font-bold text-indigo-400">{questions.length}</div>
-                            <div className="text-xs text-gray-500 mt-1">Questions</div>
+                    <div className="grid grid-cols-3 gap-3 sm:gap-6 mt-2">
+                        <div className="text-center p-2 sm:p-3 rounded-xl bg-gray-50">
+                            <div className="text-lg sm:text-2xl font-bold text-indigo-500">{questions.length}</div>
+                            <div className="text-[10px] sm:text-xs text-gray-500 mt-0.5 font-medium">Questions</div>
                         </div>
-                        <div className="text-center">
-                            <div className="text-2xl font-bold text-green-400">{answeredCount}</div>
-                            <div className="text-xs text-gray-500 mt-1">Answered</div>
+                        <div className="text-center p-2 sm:p-3 rounded-xl bg-gray-50">
+                            <div className="text-lg sm:text-2xl font-bold text-green-500">{answeredCount}</div>
+                            <div className="text-[10px] sm:text-xs text-gray-500 mt-0.5 font-medium">Answered</div>
                         </div>
-                        <div className="text-center">
-                            <div className="text-2xl font-bold text-purple-400 capitalize">{session.difficulty}</div>
-                            <div className="text-xs text-gray-500 mt-1">Difficulty</div>
+                        <div className="text-center p-2 sm:p-3 rounded-xl bg-gray-50">
+                            <div className="text-lg sm:text-2xl font-bold text-purple-500 capitalize">{session.difficulty}</div>
+                            <div className="text-[10px] sm:text-xs text-gray-500 mt-0.5 font-medium">Difficulty</div>
                         </div>
                     </div>
 
-                    <div className="flex items-center gap-3 justify-center mt-8 flex-wrap">
-                        <span className="tag-pill bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                    <div className="flex items-center justify-center gap-2 mt-5 sm:mt-6 flex-wrap">
+                        <span className="tag-pill bg-indigo-50 text-indigo-600 border border-indigo-200">
                             {session.role_selected}
                         </span>
-                        <span className="tag-pill bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                        <span className="tag-pill bg-purple-50 text-purple-600 border border-purple-200">
                             {session.category}
                         </span>
-                        <span className={`tag-pill ${score >= 7 ? 'bg-green-500/20 text-green-300' : score >= 5 ? 'bg-yellow-500/20 text-yellow-300' : 'bg-red-500/20 text-red-300'}`}>
+                        <span className={`tag-pill ${score >= 7 ? 'bg-green-50 text-green-600 border border-green-200' : score >= 5 ? 'bg-yellow-50 text-yellow-600 border border-yellow-200' : 'bg-red-50 text-red-600 border border-red-200'}`}>
                             {score >= 7 ? 'Passed ✓' : score >= 5 ? 'Average' : 'Below Average'}
                         </span>
                     </div>
                 </div>
 
                 {/* Skill breakdown */}
-                <div className="bg-white p-7 mb-6 border border-gray-100 shadow-xl rounded-2xl fade-in-up" style={{ animationDelay: '0.1s' }}>
-                    <h2 className="text-lg font-bold mb-5 flex items-center gap-2 text-gray-900">
-                        <TrendingUp size={20} className="text-indigo-600" />
+                <div className="bg-white p-4 sm:p-5 md:p-7 mb-4 sm:mb-6 border border-gray-100 shadow-lg rounded-2xl fade-in-up" style={{ animationDelay: '0.1s' }}>
+                    <h2 className="text-base sm:text-lg font-bold mb-4 sm:mb-5 flex items-center gap-2 text-gray-900">
+                        <TrendingUp size={18} className="text-indigo-600" />
                         Score Breakdown
                     </h2>
-                    <div className="space-y-4">
+                    <div className="space-y-3 sm:space-y-4">
                         {questions.map((q, i) => {
                             const qScore = q.answers?.[0]?.ai_score || 0;
                             return (
                                 <div key={q.id}>
-                                    <div className="flex items-center justify-between mb-1">
-                                        <span className="text-sm text-gray-400">Question {i + 1}</span>
-                                        <span className={`text-sm font-bold ${qScore >= 7 ? 'text-green-400' : qScore >= 5 ? 'text-yellow-400' : 'text-red-400'}`}>
+                                    <div className="flex items-center justify-between mb-1.5">
+                                        <span className="text-xs sm:text-sm text-gray-500 font-medium">Question {i + 1}</span>
+                                        <span className={`text-xs sm:text-sm font-bold ${qScore >= 7 ? 'text-green-500' : qScore >= 5 ? 'text-yellow-500' : 'text-red-500'}`}>
                                             {qScore}/10
                                         </span>
                                     </div>
@@ -158,7 +159,7 @@ const ResultsPage = () => {
                                                     qScore >= 5 ? 'linear-gradient(90deg, #f59e0b, #d97706)' :
                                                         'linear-gradient(90deg, #ef4444, #dc2626)',
                                             }}
-                                        ></div>
+                                        />
                                     </div>
                                 </div>
                             );
@@ -167,10 +168,10 @@ const ResultsPage = () => {
                 </div>
 
                 {/* Question-wise Review */}
-                <div className="bg-white border border-gray-100 shadow-xl rounded-2xl mb-8 fade-in-up" style={{ animationDelay: '0.2s' }}>
-                    <div className="p-6 border-b border-gray-50">
-                        <h2 className="text-lg font-bold flex items-center gap-2 text-gray-900">
-                            <Brain size={20} className="text-indigo-600" />
+                <div className="bg-white border border-gray-100 shadow-lg rounded-2xl mb-5 sm:mb-8 fade-in-up overflow-hidden" style={{ animationDelay: '0.2s' }}>
+                    <div className="p-4 sm:p-5 md:p-6 border-b border-gray-50">
+                        <h2 className="text-base sm:text-lg font-bold flex items-center gap-2 text-gray-900">
+                            <Brain size={18} className="text-indigo-600" />
                             Question-by-Question Review
                         </h2>
                     </div>
@@ -182,70 +183,69 @@ const ResultsPage = () => {
                             const isOpen = expanded[q.id];
 
                             return (
-                                <div key={q.id} className="p-6">
+                                <div key={q.id} className="p-4 sm:p-5 md:p-6">
                                     <button
                                         onClick={() => toggleExpand(q.id)}
-                                        className="w-full flex items-center justify-between text-left"
+                                        className="w-full flex items-center justify-between text-left gap-3"
                                     >
-                                        <div className="flex items-start gap-4 flex-1">
-                                            <div className={`w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 text-sm font-bold ${qScore >= 7 ? 'bg-emerald-50 text-emerald-600 border border-emerald-100' :
+                                        <div className="flex items-start gap-3 flex-1 min-w-0">
+                                            <div className={`w-8 h-8 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center flex-shrink-0 text-xs sm:text-sm font-bold ${qScore >= 7 ? 'bg-emerald-50 text-emerald-600 border border-emerald-100' :
                                                 qScore >= 5 ? 'bg-orange-50 text-orange-600 border border-orange-100' :
                                                     'bg-red-50 text-red-600 border border-red-100'
                                                 }`}>
                                                 {i + 1}
                                             </div>
-                                            <div className="flex-1">
-                                                <p className="text-sm font-bold text-gray-800 line-clamp-2">{q.question_text}</p>
+                                            <div className="flex-1 min-w-0">
+                                                <p className="text-xs sm:text-sm font-bold text-gray-800 line-clamp-2">{q.question_text}</p>
                                                 {!isOpen && ans && (
-                                                    <span className={`score-badge mt-2 ${qScore >= 7 ? 'score-high' : qScore >= 5 ? 'score-mid' : 'score-low'}`}>
+                                                    <span className={`score-badge mt-2 text-[10px] sm:text-xs ${qScore >= 7 ? 'score-high' : qScore >= 5 ? 'score-mid' : 'score-low'}`}>
                                                         {qScore}/10
                                                     </span>
                                                 )}
                                             </div>
                                         </div>
-                                        <div className="ml-4 text-gray-500">
+                                        <div className="text-gray-400 shrink-0 ml-2">
                                             {isOpen ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
                                         </div>
                                     </button>
 
                                     {isOpen && ans && (
-                                        <div className="mt-5 ml-13 space-y-4 pl-13" style={{ paddingLeft: '52px' }}>
-                                            {/* Your answer */}
-                                            <div className="bg-gray-50 rounded-xl p-4 border border-gray-100">
-                                                <p className="text-xs text-gray-500 mb-2 font-bold uppercase tracking-wide">Your Answer</p>
-                                                <p className="text-sm text-gray-700 leading-relaxed font-medium">{ans.user_answer}</p>
+                                        <div className="mt-4 space-y-3 sm:space-y-4 pl-0 sm:pl-11 md:pl-12">
+                                            <div className="bg-gray-50 rounded-xl p-3 sm:p-4 border border-gray-100">
+                                                <p className="text-[10px] sm:text-xs text-gray-400 mb-1.5 font-bold uppercase tracking-wide">Your Answer</p>
+                                                <p className="text-xs sm:text-sm text-gray-700 leading-relaxed font-medium">{ans.user_answer}</p>
                                             </div>
 
-                                            <div className="flex items-center justify-between">
-                                                <h4 className="font-bold text-sm text-gray-900">AI Evaluation</h4>
-                                                <span className={`score-badge shadow-sm ${qScore >= 7 ? 'score-high' : qScore >= 5 ? 'score-mid' : 'score-low'}`}>
+                                            <div className="flex items-center justify-between flex-wrap gap-2">
+                                                <h4 className="font-bold text-xs sm:text-sm text-gray-900">AI Evaluation</h4>
+                                                <span className={`score-badge text-xs ${qScore >= 7 ? 'score-high' : qScore >= 5 ? 'score-mid' : 'score-low'}`}>
                                                     Score: {qScore}/10
                                                 </span>
                                             </div>
 
                                             {feedback?.overall_feedback && (
-                                                <p className="text-sm text-gray-600 leading-relaxed font-medium">{feedback.overall_feedback}</p>
+                                                <p className="text-xs sm:text-sm text-gray-600 leading-relaxed font-medium">{feedback.overall_feedback}</p>
                                             )}
 
                                             {feedback && (
-                                                <div className="grid md:grid-cols-2 gap-3">
-                                                    <div className="bg-emerald-50 rounded-xl p-4 border border-emerald-100">
-                                                        <h5 className="text-xs font-bold text-emerald-700 mb-2 flex items-center gap-1">
+                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                                    <div className="bg-emerald-50 rounded-xl p-3 sm:p-4 border border-emerald-100">
+                                                        <h5 className="text-[10px] sm:text-xs font-bold text-emerald-700 mb-2 flex items-center gap-1">
                                                             <CheckCircle size={12} /> Strengths
                                                         </h5>
                                                         <ul className="space-y-1">
                                                             {feedback.strengths?.map((s, j) => (
-                                                                <li key={j} className="text-xs text-gray-600 font-medium">• {s}</li>
+                                                                <li key={j} className="text-[10px] sm:text-xs text-gray-600 font-medium">• {s}</li>
                                                             ))}
                                                         </ul>
                                                     </div>
-                                                    <div className="bg-orange-50 rounded-xl p-4 border border-orange-100">
-                                                        <h5 className="text-xs font-bold text-orange-700 mb-2 flex items-center gap-1">
+                                                    <div className="bg-orange-50 rounded-xl p-3 sm:p-4 border border-orange-100">
+                                                        <h5 className="text-[10px] sm:text-xs font-bold text-orange-700 mb-2 flex items-center gap-1">
                                                             <AlertCircle size={12} /> Improvements
                                                         </h5>
                                                         <ul className="space-y-1">
                                                             {feedback.improvements?.map((tip, j) => (
-                                                                <li key={j} className="text-xs text-gray-600 font-medium">• {tip}</li>
+                                                                <li key={j} className="text-[10px] sm:text-xs text-gray-600 font-medium">• {tip}</li>
                                                             ))}
                                                         </ul>
                                                     </div>
@@ -253,16 +253,16 @@ const ResultsPage = () => {
                                             )}
 
                                             {feedback?.ideal_answer_summary && (
-                                                <div className="bg-purple-50 rounded-xl p-4 border border-purple-100">
-                                                    <h5 className="text-xs font-bold text-purple-700 mb-1">📚 Ideal Answer</h5>
-                                                    <p className="text-xs text-gray-600 leading-relaxed font-medium">{feedback.ideal_answer_summary}</p>
+                                                <div className="bg-purple-50 rounded-xl p-3 sm:p-4 border border-purple-100">
+                                                    <h5 className="text-[10px] sm:text-xs font-bold text-purple-700 mb-1">📚 Ideal Answer</h5>
+                                                    <p className="text-[10px] sm:text-xs text-gray-600 leading-relaxed font-medium">{feedback.ideal_answer_summary}</p>
                                                 </div>
                                             )}
                                         </div>
                                     )}
 
                                     {isOpen && !ans && (
-                                        <div className="mt-4 pl-13 text-sm text-gray-500 italic" style={{ paddingLeft: '52px' }}>
+                                        <div className="mt-4 pl-0 sm:pl-11 md:pl-12 text-xs sm:text-sm text-gray-400 italic">
                                             No answer recorded for this question.
                                         </div>
                                     )}
@@ -273,16 +273,16 @@ const ResultsPage = () => {
                 </div>
 
                 {/* Actions */}
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 fade-in-up" style={{ animationDelay: '0.3s' }}>
-                    <Link to="/setup" className="btn-primary flex items-center gap-2 px-8 py-4">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 fade-in-up" style={{ animationDelay: '0.3s' }}>
+                    <Link to="/setup" className="btn-primary flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 min-h-[48px]">
                         <RotateCcw size={18} />
                         Practice Again
                     </Link>
-                    <Link to="/analytics" className="btn-secondary flex items-center gap-2 px-8 py-4">
+                    <Link to="/analytics" className="btn-secondary flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 min-h-[48px]">
                         <BarChart3 size={18} />
                         View Analytics
                     </Link>
-                    <Link to="/dashboard" className="btn-secondary flex items-center gap-2 px-8 py-4">
+                    <Link to="/dashboard" className="btn-secondary flex items-center justify-center gap-2 px-6 sm:px-8 py-3.5 min-h-[48px]">
                         Dashboard
                     </Link>
                 </div>

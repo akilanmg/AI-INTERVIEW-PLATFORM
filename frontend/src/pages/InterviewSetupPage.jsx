@@ -4,7 +4,7 @@ import api from '../utils/api';
 import toast from 'react-hot-toast';
 import {
     Brain, Code2, Users, Database, ChevronRight,
-    Gauge, BookOpen, Zap, ArrowRight
+    Gauge, BookOpen, Zap, ArrowRight, CheckCircle
 } from 'lucide-react';
 
 const roles = [
@@ -63,47 +63,59 @@ const InterviewSetupPage = () => {
     };
 
     const isComplete = form.role_selected && form.category && form.difficulty;
+    const completedSteps = [form.role_selected, form.category, form.difficulty].filter(Boolean).length;
 
     return (
-        <div className="hero-bg min-h-screen py-12 px-6">
-            <div className="max-w-4xl mx-auto">
+        <div className="hero-bg min-h-screen min-h-[100dvh] py-5 sm:py-8 md:py-10 px-4 sm:px-6">
+            <div className="container-custom max-w-3xl mx-auto">
                 {/* Header */}
-                <div className="text-center mb-12 fade-in-up">
-                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center mx-auto mb-5 pulse-glow">
-                        <Brain size={30} className="text-white" />
+                <div className="text-center mb-6 sm:mb-8 md:mb-10 fade-in-up">
+                    <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center mx-auto mb-4 pulse-glow shadow-lg">
+                        <Brain size={28} className="text-white" />
                     </div>
-                    <h1 className="text-4xl font-bold mb-3 text-gray-900">
+                    <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 text-gray-900 leading-tight">
                         Setup Your <span className="gradient-text">Interview</span>
                     </h1>
-                    <p className="text-gray-600 text-lg font-medium">
-                        Customize your practice session to match your target role and skill level
+                    <p className="text-gray-500 text-sm sm:text-base font-medium px-4">
+                        Customize your practice session to match your target role
                     </p>
+                    {/* Progress indicator */}
+                    <div className="flex items-center justify-center gap-2 mt-4">
+                        {[1, 2, 3].map((step) => (
+                            <div key={step} className={`h-1.5 rounded-full transition-all duration-300 ${
+                                completedSteps >= step ? 'w-10 bg-indigo-500' : 'w-6 bg-gray-200'
+                            }`} />
+                        ))}
+                    </div>
                 </div>
 
                 {/* Step 1: Role */}
-                <div className="glass-card p-7 mb-6 fade-in-up" style={{ animationDelay: '0.1s' }}>
-                    <h2 className="text-lg font-semibold mb-5 flex items-center gap-2 text-gray-900">
-                        <span className="w-7 h-7 rounded-lg bg-indigo-50 border border-indigo-200 text-indigo-600 flex items-center justify-center text-sm font-bold">1</span>
-                        Select Your Target Role
+                <div className="glass-card p-4 sm:p-5 md:p-6 mb-4 sm:mb-5 fade-in-up" style={{ animationDelay: '0.1s' }}>
+                    <h2 className="text-sm sm:text-base font-bold mb-4 flex items-center gap-2.5 text-gray-900">
+                        <span className="w-7 h-7 rounded-lg bg-indigo-50 border border-indigo-100 text-indigo-600 flex items-center justify-center text-xs font-black">1</span>
+                        Target Role
+                        {form.role_selected && <CheckCircle size={16} className="text-emerald-500 ml-auto" />}
                     </h2>
-                    <div className="grid sm:grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3">
                         {roles.map((role) => (
                             <button
                                 key={role.value}
                                 onClick={() => set('role_selected', role.value)}
-                                className={`p-4 rounded-xl border text-left transition-all hover:scale-[1.02] ${form.role_selected === role.value
-                                    ? 'border-indigo-500 bg-indigo-50 shadow-md border-opacity-100'
-                                    : 'border-gray-100 bg-gray-50/50 hover:border-indigo-200'
+                                className={`p-3.5 sm:p-4 rounded-xl border text-left transition-all duration-200 group min-h-[60px] ${form.role_selected === role.value
+                                    ? 'border-indigo-400 bg-indigo-50/60 shadow-md ring-2 ring-indigo-400/30'
+                                    : 'border-gray-100 bg-white hover:border-indigo-200 hover:bg-indigo-50/20'
                                     }`}
                             >
                                 <div className="flex items-center gap-3">
-                                    <span className="text-2xl">{role.icon}</span>
-                                    <div>
-                                        <div className={`font-semibold text-sm ${form.role_selected === role.value ? 'text-indigo-700' : 'text-gray-700'}`}>{role.label}</div>
-                                        <div className="text-xs text-gray-500 mt-0.5">{role.desc}</div>
+                                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-xl bg-white shadow-sm border border-gray-50 shrink-0 ${form.role_selected === role.value ? 'border-indigo-100 bg-indigo-50' : ''}`}>
+                                        {role.icon}
+                                    </div>
+                                    <div className="flex-1 min-w-0">
+                                        <div className={`font-bold text-sm ${form.role_selected === role.value ? 'text-indigo-900' : 'text-gray-900'}`}>{role.label}</div>
+                                        <div className="text-[10px] sm:text-xs text-gray-500 truncate">{role.desc}</div>
                                     </div>
                                     {form.role_selected === role.value && (
-                                        <div className="ml-auto w-5 h-5 rounded-full bg-indigo-500 flex items-center justify-center">
+                                        <div className="w-5 h-5 rounded-full bg-indigo-500 flex items-center justify-center shadow-sm shrink-0">
                                             <ChevronRight size={12} className="text-white" />
                                         </div>
                                     )}
@@ -114,78 +126,87 @@ const InterviewSetupPage = () => {
                 </div>
 
                 {/* Step 2: Category */}
-                <div className="glass-card p-7 mb-6 fade-in-up" style={{ animationDelay: '0.2s' }}>
-                    <h2 className="text-lg font-semibold mb-5 flex items-center gap-2 text-gray-900">
-                        <span className="w-7 h-7 rounded-lg bg-purple-50 border border-purple-200 text-purple-600 flex items-center justify-center text-sm font-bold">2</span>
-                        Choose Interview Category
+                <div className="glass-card p-4 sm:p-5 md:p-6 mb-4 sm:mb-5 fade-in-up" style={{ animationDelay: '0.2s' }}>
+                    <h2 className="text-sm sm:text-base font-bold mb-4 flex items-center gap-2.5 text-gray-900">
+                        <span className="w-7 h-7 rounded-lg bg-purple-50 border border-purple-100 text-purple-600 flex items-center justify-center text-xs font-black">2</span>
+                        Interview Category
+                        {form.category && <CheckCircle size={16} className="text-emerald-500 ml-auto" />}
                     </h2>
-                    <div className="grid sm:grid-cols-3 gap-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3">
                         {categories.map((cat) => (
                             <button
                                 key={cat.value}
                                 onClick={() => set('category', cat.value)}
-                                className={`p-5 rounded-xl border text-center transition-all hover:scale-[1.02] ${form.category === cat.value
-                                    ? `${cat.color} border-opacity-100 shadow-md`
-                                    : 'border-gray-100 bg-gray-50/50 hover:border-purple-200'
+                                className={`p-3.5 sm:p-4 md:p-5 rounded-xl border text-left sm:text-center transition-all duration-200 flex sm:flex-col items-center sm:items-center gap-3 sm:gap-0 min-h-[56px] ${form.category === cat.value
+                                    ? `${cat.color} ring-2 ring-current/30 shadow-md`
+                                    : 'border-gray-100 bg-white hover:border-purple-200 hover:bg-purple-50/20'
                                     }`}
                             >
-                                <div className={`w-10 h-10 rounded-xl flex items-center justify-center mx-auto mb-3 ${form.category === cat.value ? 'bg-white/10' : 'bg-white/5'
+                                <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-0 sm:mb-3 shadow-sm shrink-0 ${form.category === cat.value ? 'bg-white/60' : 'bg-gray-50'
                                     }`}>
                                     {cat.icon}
                                 </div>
-                                <div className="font-semibold text-sm mb-1">{cat.label}</div>
-                                <div className="text-xs text-gray-500">{cat.desc}</div>
+                                <div>
+                                    <div className="font-bold text-sm text-gray-900 mb-0 sm:mb-1">{cat.label}</div>
+                                    <div className="text-[10px] sm:text-xs text-gray-500 hidden sm:block">{cat.desc}</div>
+                                </div>
                             </button>
                         ))}
                     </div>
                 </div>
 
                 {/* Step 3: Difficulty */}
-                <div className="glass-card p-7 mb-6 fade-in-up" style={{ animationDelay: '0.3s' }}>
-                    <h2 className="text-lg font-semibold mb-5 flex items-center gap-2 text-gray-900">
-                        <span className="w-7 h-7 rounded-lg bg-cyan-50 border border-cyan-200 text-cyan-600 flex items-center justify-center text-sm font-bold">3</span>
-                        Set Difficulty Level
+                <div className="glass-card p-4 sm:p-5 md:p-6 mb-4 sm:mb-5 fade-in-up" style={{ animationDelay: '0.3s' }}>
+                    <h2 className="text-sm sm:text-base font-bold mb-4 flex items-center gap-2.5 text-gray-900">
+                        <span className="w-7 h-7 rounded-lg bg-cyan-50 border border-cyan-100 text-cyan-600 flex items-center justify-center text-xs font-black">3</span>
+                        Difficulty Level
+                        {form.difficulty && <CheckCircle size={16} className="text-emerald-500 ml-auto" />}
                     </h2>
-                    <div className="grid sm:grid-cols-3 gap-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3">
                         {difficulties.map((diff) => (
                             <button
                                 key={diff.value}
                                 onClick={() => set('difficulty', diff.value)}
-                                className={`p-5 rounded-xl border text-center transition-all hover:scale-[1.02] ${form.difficulty === diff.value
-                                    ? `${diff.color} border-opacity-100 shadow-md`
-                                    : 'border-gray-100 bg-gray-50/50 hover:border-cyan-200'
+                                className={`p-3.5 sm:p-4 md:p-5 rounded-xl border text-left sm:text-center transition-all duration-200 flex sm:flex-col items-center sm:items-center gap-3 sm:gap-0 min-h-[56px] ${form.difficulty === diff.value
+                                    ? `${diff.color} ring-2 ring-current/30 shadow-md`
+                                    : 'border-gray-100 bg-white hover:border-cyan-200 hover:bg-cyan-50/20'
                                     }`}
                             >
-                                <div className="flex items-center justify-center mb-3">{diff.icon}</div>
-                                <div className="font-semibold text-sm mb-1">{diff.label}</div>
-                                <div className="text-xs text-gray-500">{diff.desc}</div>
+                                <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-0 sm:mb-3 shadow-sm shrink-0 ${form.difficulty === diff.value ? 'bg-white/60' : 'bg-gray-50'
+                                    }`}>
+                                    {diff.icon}
+                                </div>
+                                <div>
+                                    <div className="font-bold text-sm text-gray-900 mb-0 sm:mb-1 capitalize">{diff.label}</div>
+                                    <div className="text-[10px] sm:text-xs text-gray-500 hidden sm:block">{diff.desc}</div>
+                                </div>
                             </button>
                         ))}
                     </div>
                 </div>
 
                 {/* Step 4: Number of questions */}
-                <div className="glass-card p-7 mb-8 fade-in-up" style={{ animationDelay: '0.4s' }}>
-                    <h2 className="text-lg font-semibold mb-5 flex items-center gap-2 text-gray-900">
-                        <span className="w-7 h-7 rounded-lg bg-green-50 border border-green-200 text-green-600 flex items-center justify-center text-sm font-bold">4</span>
-                        Number of Questions: <span className="gradient-text ml-2">{form.num_questions}</span>
+                <div className="glass-card p-4 sm:p-5 md:p-6 mb-6 sm:mb-8 fade-in-up" style={{ animationDelay: '0.4s' }}>
+                    <h2 className="text-sm sm:text-base font-bold mb-4 flex flex-wrap items-center gap-2 text-gray-900">
+                        <span className="w-7 h-7 rounded-lg bg-green-50 border border-green-200 text-green-600 flex items-center justify-center text-xs font-bold">4</span>
+                        Questions: <span className="gradient-text text-lg font-black">{form.num_questions}</span>
                     </h2>
-                    <div className="flex items-center gap-4">
+                    <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
                         <input
                             type="range"
                             min="3" max="10" step="1"
                             value={form.num_questions}
                             onChange={(e) => set('num_questions', parseInt(e.target.value))}
-                            className="flex-1 h-2 appearance-none bg-gray-200 rounded-full accent-indigo-600 cursor-pointer"
+                            className="flex-1 min-w-0 cursor-pointer"
                         />
-                        <div className="flex gap-2">
+                        <div className="flex gap-2 justify-center sm:justify-start flex-wrap">
                             {[3, 5, 7, 10].map(n => (
                                 <button
                                     key={n}
                                     onClick={() => set('num_questions', n)}
-                                    className={`px-3 py-1.5 rounded-lg text-sm font-medium transition ${form.num_questions === n
-                                        ? 'bg-indigo-500/30 border border-indigo-500/50 text-indigo-300'
-                                        : 'bg-white/5 border border-white/10 text-gray-400 hover:border-white/20'
+                                    className={`px-3 py-1.5 rounded-lg text-sm font-semibold transition-all min-w-[40px] ${form.num_questions === n
+                                        ? 'bg-indigo-100 border border-indigo-300 text-indigo-700 shadow-sm'
+                                        : 'bg-gray-50 border border-gray-200 text-gray-500 hover:border-indigo-200 hover:text-indigo-600'
                                         }`}
                                 >
                                     {n}
@@ -200,11 +221,11 @@ const InterviewSetupPage = () => {
                     <button
                         onClick={handleStart}
                         disabled={!isComplete || loading}
-                        className="btn-primary text-lg px-12 py-5 inline-flex items-center gap-3"
+                        className="btn-primary text-base sm:text-lg px-8 sm:px-12 py-4 inline-flex items-center justify-center gap-2 w-full sm:w-auto min-h-[52px]"
                     >
                         {loading ? (
                             <>
-                                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                                 Creating session...
                             </>
                         ) : (
@@ -216,7 +237,7 @@ const InterviewSetupPage = () => {
                         )}
                     </button>
                     {!isComplete && (
-                        <p className="text-gray-500 text-sm mt-3">Complete all selections above to begin</p>
+                        <p className="text-gray-400 text-sm mt-3 font-medium">Complete all {3 - completedSteps} remaining selection{3 - completedSteps > 1 ? 's' : ''} above</p>
                     )}
                 </div>
             </div>

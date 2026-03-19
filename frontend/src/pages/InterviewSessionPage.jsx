@@ -4,7 +4,7 @@ import api from '../utils/api';
 import toast from 'react-hot-toast';
 import {
     Brain, Mic, MicOff, Send, ChevronRight, Clock,
-    CheckCircle, AlertCircle, Loader2, Volume2, VolumeX
+    CheckCircle, AlertCircle, Loader2
 } from 'lucide-react';
 
 const InterviewSessionPage = () => {
@@ -20,7 +20,7 @@ const InterviewSessionPage = () => {
     const [loading, setLoading] = useState(false);
     const [submitting, setSubmitting] = useState(false);
     const [completing, setCompleting] = useState(false);
-    const [timeLeft, setTimeLeft] = useState(120); // 2 minutes per question
+    const [timeLeft, setTimeLeft] = useState(120);
     const [timerActive, setTimerActive] = useState(false);
     const [recording, setRecording] = useState(false);
     const [transcript, setTranscript] = useState('');
@@ -28,13 +28,12 @@ const InterviewSessionPage = () => {
     const numQuestions = state?.num_questions || 5;
     const timerRef = useRef(null);
     const recognitionRef = useRef(null);
+    const textareaRef = useRef(null);
 
-    // Generate first question on mount
     useEffect(() => {
         generateQuestion(0);
     }, []);
 
-    // Timer
     useEffect(() => {
         if (timerActive && timeLeft > 0) {
             timerRef.current = setTimeout(() => setTimeLeft(t => t - 1), 1000);
@@ -96,7 +95,6 @@ const InterviewSessionPage = () => {
     const handleNext = async () => {
         const nextIndex = currentIndex + 1;
         if (nextIndex >= numQuestions) {
-            // Complete interview
             setCompleting(true);
             try {
                 await api.put(`/interview/session/${sessionId}/complete`);
@@ -113,7 +111,6 @@ const InterviewSessionPage = () => {
         }
     };
 
-    // Voice recording using Web Speech API
     const startRecording = () => {
         if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
             return toast.error('Voice recording not supported in this browser. Please use Chrome.');
@@ -170,57 +167,57 @@ const InterviewSessionPage = () => {
     const isLastQuestion = currentIndex === numQuestions - 1;
 
     return (
-        <div className="hero-bg min-h-screen py-10 px-6">
+        <div className="hero-bg min-h-screen min-h-[100dvh] py-5 sm:py-8 md:py-10 px-4 sm:px-6">
             <div className="max-w-3xl mx-auto">
                 {/* Header */}
-                <div className="flex items-center justify-between mb-8">
-                    <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
-                            <Brain size={20} className="text-white" />
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 mb-5 sm:mb-8">
+                    <div className="flex items-center gap-3 min-w-0">
+                        <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center flex-shrink-0 shadow-md">
+                            <Brain size={18} className="text-white" />
                         </div>
-                        <div>
-                            <div className="font-semibold text-sm text-gray-900">{state?.role_selected} — {state?.category}</div>
-                            <div className="text-xs text-gray-500 capitalize font-medium">{state?.difficulty} level</div>
+                        <div className="min-w-0">
+                            <div className="font-semibold text-xs sm:text-sm text-gray-900 truncate">{state?.role_selected} — {state?.category}</div>
+                            <div className="text-[10px] sm:text-xs text-gray-400 capitalize font-medium">{state?.difficulty} level</div>
                         </div>
                     </div>
 
                     {/* Timer */}
-                    <div className={`flex items-center gap-2 px-4 py-2 rounded-xl border ${timeLeft <= 30 ? 'border-red-200 bg-red-50 text-red-600' :
+                    <div className={`flex items-center justify-center gap-2 px-3.5 py-2.5 rounded-xl border flex-shrink-0 transition-colors ${timeLeft <= 30 ? 'border-red-200 bg-red-50 text-red-600' :
                         timeLeft <= 60 ? 'border-yellow-200 bg-yellow-50 text-yellow-600' :
                             'border-gray-200 bg-white text-gray-700 shadow-sm'
                         }`}>
                         <Clock size={16} />
-                        <span className="font-mono font-bold text-lg">{formatTime(timeLeft)}</span>
+                        <span className="font-mono font-bold text-lg tabular-nums">{formatTime(timeLeft)}</span>
                     </div>
                 </div>
 
                 {/* Progress bar */}
-                <div className="mb-8">
+                <div className="mb-6 sm:mb-8">
                     <div className="flex items-center justify-between mb-2">
-                        <span className="text-sm text-gray-500 font-medium">Question {currentIndex + 1} of {numQuestions}</span>
-                        <span className="text-sm text-indigo-600 font-bold">{Math.round(progress)}% Complete</span>
+                        <span className="text-xs sm:text-sm text-gray-500 font-medium">Question {currentIndex + 1} of {numQuestions}</span>
+                        <span className="text-xs sm:text-sm text-indigo-600 font-bold">{Math.round(progress)}%</span>
                     </div>
                     <div className="progress-bar">
-                        <div className="progress-fill" style={{ width: `${progress}%` }}></div>
+                        <div className="progress-fill" style={{ width: `${progress}%` }} />
                     </div>
                 </div>
 
                 {/* Question Card */}
-                <div className="glass-card p-7 mb-6 border-indigo-500/20 fade-in-up">
-                    <div className="flex items-center gap-2 mb-5">
-                        <div className="w-8 h-8 rounded-lg bg-indigo-50 border border-indigo-200 flex items-center justify-center">
-                            <Brain size={16} className="text-indigo-600" />
+                <div className="glass-card p-4 sm:p-5 md:p-7 mb-5 sm:mb-6 border-indigo-100/30 fade-in-up">
+                    <div className="flex items-center gap-2 mb-4">
+                        <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-indigo-50 border border-indigo-200 flex items-center justify-center">
+                            <Brain size={14} className="text-indigo-600 sm:w-4 sm:h-4" />
                         </div>
-                        <span className="text-sm font-bold text-indigo-600">AI Interviewer</span>
+                        <span className="text-xs sm:text-sm font-bold text-indigo-600">AI Interviewer</span>
                     </div>
 
                     {loading ? (
-                        <div className="flex items-center gap-3 py-4">
+                        <div className="flex items-center gap-3 py-6 justify-center">
                             <Loader2 size={22} className="animate-spin text-indigo-600" />
-                            <span className="text-gray-500 font-medium">Generating your question...</span>
+                            <span className="text-gray-500 font-medium text-sm">Generating your question...</span>
                         </div>
                     ) : (
-                        <p className="text-lg text-gray-800 leading-relaxed font-semibold">
+                        <p className="text-sm sm:text-base md:text-lg text-gray-800 leading-relaxed font-semibold">
                             {question?.question_text}
                         </p>
                     )}
@@ -228,38 +225,38 @@ const InterviewSessionPage = () => {
 
                 {/* Answer Section */}
                 {!evaluation && !loading && (
-                    <div className="glass-card p-7 mb-6 fade-in-up" style={{ animationDelay: '0.1s' }}>
-                        <div className="flex items-center justify-between mb-4">
-                            <h3 className="font-semibold flex items-center gap-2 text-gray-900">
-                                <span className="w-6 h-6 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center text-xs font-bold">✏</span>
+                    <div className="glass-card p-4 sm:p-5 md:p-7 mb-5 sm:mb-6 fade-in-up" style={{ animationDelay: '0.1s' }}>
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+                            <h3 className="font-semibold flex items-center gap-2 text-gray-900 text-sm">
+                                <span className="w-6 h-6 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center text-[10px] font-bold">✏</span>
                                 Your Answer
                             </h3>
 
-                            {/* Voice toggle */}
                             <button
                                 onClick={recording ? stopRecording : startRecording}
-                                className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium transition ${recording
+                                className={`flex items-center justify-center gap-2 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-medium transition-all min-h-[40px] ${recording
                                     ? 'bg-red-50 border border-red-200 text-red-600 animate-pulse'
                                     : 'bg-gray-50 border border-gray-200 text-gray-600 hover:border-indigo-200 hover:text-indigo-600'
                                     }`}
                             >
                                 {recording ? <MicOff size={16} /> : <Mic size={16} />}
-                                {recording ? 'Stop Recording' : 'Voice Answer'}
+                                {recording ? 'Stop' : 'Voice'}
                             </button>
                         </div>
 
                         <textarea
+                            ref={textareaRef}
                             value={answer || transcript}
                             onChange={(e) => setAnswer(e.target.value)}
-                            placeholder="Type your answer here... Be as detailed as possible. Explain your thought process, give examples, and cover edge cases."
-                            rows={7}
-                            className="input-field resize-none mb-4"
+                            placeholder="Type your answer here... Be detailed — explain your thought process, give examples, and cover edge cases."
+                            rows={5}
+                            className="input-field resize-none mb-4 min-h-[120px] sm:min-h-[140px]"
                             disabled={recording}
                         />
 
                         {recording && (
-                            <div className="flex items-center gap-2 mb-4 text-red-400 text-sm">
-                                <div className="w-2 h-2 rounded-full bg-red-400 animate-pulse"></div>
+                            <div className="flex items-center gap-2 mb-4 text-red-500 text-xs sm:text-sm font-medium">
+                                <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
                                 Listening... speak your answer clearly
                             </div>
                         )}
@@ -267,17 +264,17 @@ const InterviewSessionPage = () => {
                         <button
                             onClick={handleSubmitAnswer}
                             disabled={submitting || (!answer && !transcript)}
-                            className="btn-primary w-full flex items-center justify-center gap-2"
+                            className="btn-primary w-full flex items-center justify-center gap-2 min-h-[48px]"
                         >
                             {submitting ? (
                                 <>
                                     <Loader2 size={18} className="animate-spin" />
-                                    AI is evaluating your answer...
+                                    <span className="text-sm sm:text-base">AI is evaluating...</span>
                                 </>
                             ) : (
                                 <>
                                     <Send size={18} />
-                                    Submit Answer for AI Evaluation
+                                    <span className="text-sm sm:text-base">Submit Answer</span>
                                 </>
                             )}
                         </button>
@@ -286,45 +283,47 @@ const InterviewSessionPage = () => {
 
                 {/* Evaluation Result */}
                 {evaluation && (
-                    <div className="space-y-5 fade-in-up">
+                    <div className="space-y-4 sm:space-y-5 fade-in-up">
                         {/* Score */}
-                        <div className="glass-card p-7 border-indigo-100 bg-gradient-to-br from-indigo-50/50 to-purple-50/50">
-                            <div className="flex items-center justify-between mb-5">
-                                <h3 className="text-lg font-semibold flex items-center gap-2 text-gray-900">
-                                    <CheckCircle size={20} className="text-emerald-600" />
+                        <div className="glass-card p-4 sm:p-5 md:p-7 border-indigo-100 bg-gradient-to-br from-indigo-50/50 to-purple-50/50">
+                            <div className="flex items-center justify-between mb-4">
+                                <h3 className="text-base sm:text-lg font-bold flex items-center gap-2 text-gray-900">
+                                    <CheckCircle size={18} className="text-emerald-600" />
                                     AI Evaluation
                                 </h3>
-                                <div className={`score-badge text-lg px-4 py-2 shadow-sm ${evaluation.score >= 7 ? 'score-high' :
+                                <div className={`score-badge text-base sm:text-lg px-4 py-2 ${evaluation.score >= 7 ? 'score-high' :
                                     evaluation.score >= 5 ? 'score-mid' : 'score-low'
                                     }`}>
                                     {evaluation.score}/10
                                 </div>
                             </div>
-                            <p className="text-gray-700 leading-relaxed font-medium">{evaluation.overall_feedback}</p>
+                            <p className="text-gray-700 text-sm sm:text-base leading-relaxed font-medium">{evaluation.overall_feedback}</p>
                         </div>
 
                         {/* Strengths & Weaknesses */}
-                        <div className="grid md:grid-cols-2 gap-5">
-                            <div className="glass-card p-6 border-emerald-100 bg-emerald-50/50">
-                                <h4 className="font-bold text-emerald-700 mb-3 flex items-center gap-2">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="glass-card p-4 sm:p-5 md:p-6 border-emerald-100 bg-emerald-50/50">
+                                <h4 className="font-bold text-emerald-700 mb-3 flex items-center gap-2 text-sm sm:text-base">
                                     <CheckCircle size={16} /> Strengths
                                 </h4>
                                 <ul className="space-y-2">
                                     {evaluation.strengths?.map((s, i) => (
-                                        <li key={i} className="text-sm text-gray-700 flex items-start gap-2">
-                                            <span className="text-emerald-500 mt-0.5">•</span> {s}
+                                        <li key={i} className="text-xs sm:text-sm text-gray-700 flex items-start gap-2">
+                                            <span className="text-emerald-500 mt-0.5 shrink-0">•</span>
+                                            <span>{s}</span>
                                         </li>
                                     ))}
                                 </ul>
                             </div>
-                            <div className="glass-card p-6 border-orange-100 bg-orange-50/50">
-                                <h4 className="font-bold text-orange-700 mb-3 flex items-center gap-2">
+                            <div className="glass-card p-4 sm:p-5 md:p-6 border-orange-100 bg-orange-50/50">
+                                <h4 className="font-bold text-orange-700 mb-3 flex items-center gap-2 text-sm sm:text-base">
                                     <AlertCircle size={16} /> Areas to Improve
                                 </h4>
                                 <ul className="space-y-2">
                                     {evaluation.weaknesses?.map((w, i) => (
-                                        <li key={i} className="text-sm text-gray-700 flex items-start gap-2">
-                                            <span className="text-orange-500 mt-0.5">•</span> {w}
+                                        <li key={i} className="text-xs sm:text-sm text-gray-700 flex items-start gap-2">
+                                            <span className="text-orange-500 mt-0.5 shrink-0">•</span>
+                                            <span>{w}</span>
                                         </li>
                                     ))}
                                 </ul>
@@ -332,12 +331,13 @@ const InterviewSessionPage = () => {
                         </div>
 
                         {/* Improvements */}
-                        <div className="glass-card p-6 border-indigo-100 bg-indigo-50/50">
-                            <h4 className="font-bold text-indigo-700 mb-3">💡 Improvement Tips</h4>
+                        <div className="glass-card p-4 sm:p-5 md:p-6 border-indigo-100 bg-indigo-50/50">
+                            <h4 className="font-bold text-indigo-700 mb-3 text-sm sm:text-base">💡 Improvement Tips</h4>
                             <ul className="space-y-2">
                                 {evaluation.improvements?.map((tip, i) => (
-                                    <li key={i} className="text-sm text-gray-700 flex items-start gap-2">
-                                        <span className="text-indigo-500 font-bold mt-0.5">{i + 1}.</span> {tip}
+                                    <li key={i} className="text-xs sm:text-sm text-gray-700 flex items-start gap-2">
+                                        <span className="text-indigo-500 font-bold mt-0.5 shrink-0">{i + 1}.</span>
+                                        <span>{tip}</span>
                                     </li>
                                 ))}
                             </ul>
@@ -345,9 +345,9 @@ const InterviewSessionPage = () => {
 
                         {/* Ideal answer */}
                         {evaluation.ideal_answer_summary && (
-                            <div className="glass-card p-6 border-purple-100 bg-purple-50/50">
-                                <h4 className="font-bold text-purple-700 mb-2">📚 Ideal Answer Summary</h4>
-                                <p className="text-sm text-gray-700 leading-relaxed font-medium">{evaluation.ideal_answer_summary}</p>
+                            <div className="glass-card p-4 sm:p-5 md:p-6 border-purple-100 bg-purple-50/50">
+                                <h4 className="font-bold text-purple-700 mb-2 text-sm sm:text-base">📚 Ideal Answer Summary</h4>
+                                <p className="text-xs sm:text-sm text-gray-700 leading-relaxed font-medium">{evaluation.ideal_answer_summary}</p>
                             </div>
                         )}
 
@@ -355,7 +355,7 @@ const InterviewSessionPage = () => {
                         <button
                             onClick={handleNext}
                             disabled={completing}
-                            className="btn-primary w-full flex items-center justify-center gap-2 py-4 text-base"
+                            className="btn-primary w-full flex items-center justify-center gap-2 py-4 text-base min-h-[52px]"
                         >
                             {completing ? (
                                 <>
