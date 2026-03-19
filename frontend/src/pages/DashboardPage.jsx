@@ -14,12 +14,6 @@ const categoryColors = {
     HR: 'bg-green-50 text-green-600 border-green-200',
 };
 
-const difficultyColors = {
-    beginner: 'bg-teal-50 text-teal-600 border-teal-100',
-    intermediate: 'bg-yellow-50 text-yellow-600 border-yellow-100',
-    advanced: 'bg-red-50 text-red-600 border-red-100',
-};
-
 const DashboardPage = () => {
     const { user } = useAuth();
     const navigate = useNavigate();
@@ -47,7 +41,7 @@ const DashboardPage = () => {
     };
 
     const getScoreClass = (score) => {
-        if (!score) return 'score-mid';
+        if (score == null) return 'score-mid';
         if (score >= 7) return 'score-high';
         if (score >= 5) return 'score-mid';
         return 'score-low';
@@ -66,7 +60,7 @@ const DashboardPage = () => {
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6 sm:mb-8 md:mb-10">
                     <div className="fade-in-up min-w-0">
                         <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 leading-tight truncate">
-                            Welcome back, <span className="gradient-text">{user?.name?.split(' ')[0]}! 👋</span>
+                            Welcome back, <span className="gradient-text">{user?.name?.split(' ')[0] || 'User'}! 👋</span>
                         </h1>
                         <p className="text-gray-500 mt-1 font-medium text-sm">Ready to practice? Your AI interviewer is waiting.</p>
                     </div>
@@ -80,7 +74,6 @@ const DashboardPage = () => {
                     </Link>
                 </div>
 
-                {/* Stats Cards */}
                 {loading ? (
                     <div className="flex justify-center py-20">
                         <Loader2 size={40} className="animate-spin text-indigo-400" />
@@ -137,78 +130,86 @@ const DashboardPage = () => {
                             ))}
                         </div>
 
-                        {/* Interview History */}
+                        {/* History */}
                         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden fade-in-up" style={{ animationDelay: '0.5s' }}>
                             <div className="px-4 sm:px-6 py-4 border-b border-gray-100 flex items-center justify-between bg-gray-50/50">
-                                 <h2 className="text-sm sm:text-base md:text-lg font-bold flex items-center gap-2 text-gray-900">
-                                     <Clock size={18} className="text-indigo-600" />
-                                     Recent Activity
-                                 </h2>
-                                 <Link to="/analytics" className="text-indigo-600 hover:text-indigo-700 text-xs sm:text-sm font-bold transition">
-                                     See all →
-                                 </Link>
+                                <h2 className="text-sm sm:text-base md:text-lg font-bold flex items-center gap-2 text-gray-900">
+                                    <Clock size={18} className="text-indigo-600" />
+                                    Recent Activity
+                                </h2>
+                                <Link to="/analytics" className="text-indigo-600 hover:text-indigo-700 text-xs sm:text-sm font-bold transition">
+                                    See all →
+                                </Link>
                             </div>
 
                             {sessions.length === 0 ? (
                                 <div className="py-12 sm:py-16 text-center px-6">
-                                     <div className="w-16 h-16 rounded-full bg-gray-50 flex items-center justify-center mx-auto mb-4">
-                                         <AlertCircle size={28} className="text-gray-300" />
-                                     </div>
-                                     <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-1">No interviews yet</h3>
-                                     <p className="text-gray-500 text-sm mb-6 max-w-xs mx-auto">Start your first AI mock interview to see results here</p>
-                                     <Link to="/setup" className="btn-primary inline-flex items-center gap-2">
-                                         <Sparkles size={16} /> Start Now
-                                     </Link>
-                                 </div>
+                                    <div className="w-16 h-16 rounded-full bg-gray-50 flex items-center justify-center mx-auto mb-4">
+                                        <AlertCircle size={28} className="text-gray-300" />
+                                    </div>
+                                    <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-1">No interviews yet</h3>
+                                    <p className="text-gray-500 text-sm mb-6 max-w-xs mx-auto">Start your first AI mock interview to see results here</p>
+                                    <Link to="/setup" className="btn-primary inline-flex items-center gap-2">
+                                        <Sparkles size={16} /> Start Now
+                                    </Link>
+                                </div>
                             ) : (
                                 <div className="divide-y divide-gray-50">
                                     {sessions.map((session) => (
-                                        <div key={session.id} className="px-4 sm:px-6 py-4 hover:bg-gray-50/50 transition flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
-                                            <div className="flex items-center gap-3 w-full sm:w-auto sm:flex-1 min-w-0">
-                                                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-50 to-purple-50 border border-indigo-100 flex items-center justify-center flex-shrink-0">
+                                        <div key={session.id} className="px-4 sm:px-6 py-4 hover:bg-gray-50/50 transition flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+                                            <div className="flex items-center gap-3 flex-1 min-w-0">
+                                                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-50 to-purple-50 border border-indigo-100 flex items-center justify-center shrink-0">
                                                     <Brain size={18} className="text-indigo-500" />
                                                 </div>
                                                 <div className="flex-1 min-w-0">
                                                     <div className="flex items-center gap-2 mb-0.5 flex-wrap">
-                                                        <span className="font-bold text-sm text-gray-900 truncate">{session.role_selected}</span>
-                                                        <span className={`tag-pill px-2 py-0.5 text-[10px] sm:text-xs font-bold ${categoryColors[session.category] || 'bg-gray-100 text-gray-600 border-gray-200'}`}>
+                                                        <span className="font-bold text-sm text-gray-900 truncate">{session.role_selected || 'Interview'}</span>
+                                                        <span className={`tag-pill px-2 py-0.5 text-[9px] sm:text-[10px] font-bold ${categoryColors[session.category] || 'bg-gray-100 text-gray-600 border-gray-200'}`}>
                                                             {session.category}
                                                         </span>
                                                     </div>
-                                                    <div className="flex items-center gap-3 text-[10px] sm:text-xs text-gray-400 font-medium">
+                                                    <div className="flex items-center gap-2.5 text-[10px] sm:text-xs text-gray-400 font-medium">
                                                         <span className="flex items-center gap-1">
                                                             <Calendar size={11} />
                                                             {formatDate(session.created_at)}
                                                         </span>
-                                                        <span className={`px-2 py-0.5 rounded-full font-bold uppercase tracking-tighter text-[9px] sm:text-[10px] ${session.status === 'completed' ? 'text-emerald-500 bg-emerald-50' : 'text-orange-500 bg-orange-50'
-                                                            }`}>{session.status}</span>
+                                                        <span className={`px-2 py-0.5 rounded-full font-bold uppercase tracking-tighter text-[9px] sm:text-[10px] ${session.status === 'completed' ? 'text-emerald-500 bg-emerald-50' : 'text-orange-500 bg-orange-50'}`}>
+                                                            {session.status}
+                                                        </span>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div className="flex items-center justify-between w-full sm:w-auto gap-3 pt-2 sm:pt-0 border-t sm:border-t-0 border-gray-50">
+                                            <div className="flex items-center justify-between sm:justify-end gap-3 sm:gap-4 pt-2 sm:pt-0 border-t sm:border-t-0 border-gray-50 sm:flex-shrink-0">
                                                 {session.overall_score != null && (
-                                                    <div className="flex flex-col items-center">
-                                                        <div className={`score-badge ${getScoreClass(session.overall_score)} px-3 py-1 text-xs font-black`}>
-                                                            {session.overall_score}/10
-                                                        </div>
+                                                    <div className={`score-badge ${getScoreClass(session.overall_score)} px-3 py-1 text-xs font-black min-w-[45px] text-center`}>
+                                                        {session.overall_score}/10
                                                     </div>
                                                 )}
-                                                {session.status === 'completed' ? (
-                                                    <button
-                                                        onClick={() => navigate(`/results/${session.id}`)}
-                                                        className="btn-secondary text-xs py-2 px-4 whitespace-nowrap font-bold min-h-[36px]"
-                                                    >
-                                                        Details
-                                                    </button>
-                                                ) : (
-                                                    <button
-                                                        onClick={() => navigate(`/interview/${session.id}`)}
-                                                        className="btn-primary text-xs py-2 px-4 whitespace-nowrap font-bold min-h-[36px]"
-                                                    >
-                                                        Resume
-                                                    </button>
-                                                )}
+                                                <div className="flex items-center gap-2">
+                                                    {session.status !== 'completed' ? (
+                                                        <button
+                                                            onClick={() => navigate(`/interview/${session.id}`, {
+                                                                state: {
+                                                                    role_selected: session.role_selected,
+                                                                    category: session.category,
+                                                                    difficulty: session.difficulty,
+                                                                    num_questions: session.num_questions
+                                                                }
+                                                            })}
+                                                            className="btn-primary py-1.5 px-3 sm:px-4 text-[10px] sm:text-xs min-h-0"
+                                                        >
+                                                            Resume
+                                                        </button>
+                                                    ) : (
+                                                        <button
+                                                            onClick={() => navigate(`/results/${session.id}`)}
+                                                            className="btn-secondary py-1.5 px-3 sm:px-4 text-[10px] sm:text-xs min-h-0"
+                                                        >
+                                                            View Result
+                                                        </button>
+                                                    )}
+                                                </div>
                                             </div>
                                         </div>
                                     ))}
