@@ -128,6 +128,44 @@ const SignupPage = () => {
                                         {showPass ? <EyeOff size={18} /> : <Eye size={18} />}
                                     </button>
                                 </div>
+                                {form.password && (
+                                    <div className="mt-2.5">
+                                        <div className="flex gap-1.5 h-1.5 mb-1.5 px-0.5">
+                                            {[1, 2, 3, 4].map((level) => {
+                                                const strength = (() => {
+                                                    let s = 0;
+                                                    if (form.password.length >= 6) s++;
+                                                    if (/[A-Z]/.test(form.password)) s++;
+                                                    if (/[0-9]/.test(form.password)) s++;
+                                                    if (/[^A-Za-z0-9]/.test(form.password)) s++;
+                                                    return s;
+                                                })();
+                                                const isActive = strength >= level;
+                                                const color = strength === 1 ? 'bg-red-400' : strength === 2 ? 'bg-orange-400' : strength === 3 ? 'bg-yellow-400' : 'bg-emerald-400';
+                                                return (
+                                                    <div key={level} className={`flex-1 rounded-full transition-all duration-300 ${isActive ? color : 'bg-gray-100'}`} />
+                                                );
+                                            })}
+                                        </div>
+                                        <p className="text-[10px] font-bold uppercase tracking-wider text-gray-400">
+                                            {(() => {
+                                                const s = (() => {
+                                                    let val = 0;
+                                                    if (form.password.length >= 6) val++;
+                                                    if (/[A-Z]/.test(form.password)) val++;
+                                                    if (/[0-9]/.test(form.password)) val++;
+                                                    if (/[^A-Za-z0-9]/.test(form.password)) val++;
+                                                    return val;
+                                                })();
+                                                if (s === 1) return 'Weak';
+                                                if (s === 2) return 'Fair';
+                                                if (s === 3) return 'Good';
+                                                if (s === 4) return 'Strong';
+                                                return '';
+                                            })()}
+                                        </p>
+                                    </div>
+                                )}
                             </div>
 
                             <div className="form-group">
