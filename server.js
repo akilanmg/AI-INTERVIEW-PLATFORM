@@ -27,6 +27,11 @@ app.use('/api/interview', interviewRoutes);
 app.use('/api/analytics', analyticsRoutes);
 app.use('/api/user', userRoutes);
 
+// Welcome route
+app.get('/', (req, res) => {
+  res.json({ message: 'InterviewAI Backend is running! 🚀', status: 'OK' });
+});
+
 // Health check
 app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', timestamp: new Date().toISOString() });
